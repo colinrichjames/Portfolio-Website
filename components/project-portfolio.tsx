@@ -1,0 +1,239 @@
+"use client"
+
+import { motion } from "framer-motion"
+import { Github, FileText, Play, ExternalLink } from "lucide-react"
+import { useState } from "react"
+
+interface Project {
+  id: string
+  title: string
+  subtitle: string
+  description: string
+  videoId: string
+  githubUrl: string
+  pdfUrl: string
+  tags: string[]
+}
+
+const projects: Project[] = [
+  {
+    id: "mkrhome",
+    title: "MKRHome",
+    subtitle: "AI-Powered DIY Learning",
+    description:
+      "Developed a full-stack web application (React/Node.js) featuring an OpenAI-driven assistant named \"Roger\" to provide real-time DIY feedback based on adult learning theories.",
+    videoId: "dQw4w9WgXcQ", // Replace with actual video ID
+    githubUrl: "#",
+    pdfUrl: "#",
+    tags: ["React", "Node.js", "OpenAI", "HCI"],
+  },
+  {
+    id: "ramblin-city",
+    title: "Ramblin' City",
+    subtitle: "Video Game Design",
+    description:
+      "Led a team of three to build a real-time simulation from the ground up, managing technical debt and concurrency logic in a collaborative environment.",
+    videoId: "dQw4w9WgXcQ", // Replace with actual video ID
+    githubUrl: "#",
+    pdfUrl: "#",
+    tags: ["Unity", "C#", "Game Design", "Team Lead"],
+  },
+  {
+    id: "iot-glove",
+    title: "IoT Smart Glove",
+    subtitle: "Ubiquitous Computing",
+    description:
+      "Co-developed a wearable gesture-recognition prototype for seamless smart home control. Utilized an Arduino-based glove with accelerometer, achieving 87% accuracy via Random Forest classifier while mitigating the \"Midas touch\" problem.",
+    videoId: "dQw4w9WgXcQ", // Replace with actual video ID
+    githubUrl: "#",
+    pdfUrl: "#",
+    tags: ["Arduino", "ML", "Wearables", "HCI"],
+  },
+]
+
+function VideoThumbnail({ videoId, title }: { videoId: string; title: string }) {
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  if (isPlaying) {
+    return (
+      <div className="relative w-full aspect-video rounded-lg overflow-hidden">
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full"
+        />
+      </div>
+    )
+  }
+
+  return (
+    <button
+      onClick={() => setIsPlaying(true)}
+      className="relative w-full aspect-video rounded-lg overflow-hidden group cursor-pointer bg-secondary/50"
+      aria-label={`Play ${title} video`}
+    >
+      {/* YouTube Thumbnail */}
+      <img
+        src={`https://youtu.be/uYPU2nKgteI`}
+        alt={`${title} video thumbnail`}
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        onError={(e) => {
+          // Fallback to hqdefault if maxresdefault doesn't exist
+          e.currentTarget.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+        }}
+      />
+      
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-background/40 group-hover:bg-background/20 transition-colors duration-300" />
+      
+      {/* Play Button */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-16 h-16 md:w-20 md:h-20 bg-red-600 rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+          <Play className="w-7 h-7 md:w-8 md:h-8 text-white fill-white ml-1" />
+        </div>
+      </div>
+    </button>
+  )
+}
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: index * 0.15 }}
+      className="flex flex-col h-full"
+    >
+      {/* Card Container */}
+      <div className="flex flex-col h-full bg-card/50 rounded-xl border border-border/50 overflow-hidden hover:border-primary/30 transition-colors duration-300">
+        {/* Header */}
+        <div className="p-5 pb-3 text-center">
+          <h3 className="text-xl md:text-2xl font-bold text-primary uppercase tracking-wide text-balance">
+            {project.title}
+          </h3>
+          <p className="text-sm text-primary/70 uppercase tracking-wider mt-1">
+            {project.subtitle}
+          </p>
+        </div>
+
+        {/* Video */}
+        <div className="px-4">
+          <VideoThumbnail videoId={project.videoId} title={project.title} />
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-col flex-1 p-5 pt-4">
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mb-3">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary/80 border border-primary/20"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Description */}
+          <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+            {project.description}
+          </p>
+
+          {/* Links */}
+          <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border/50">
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
+              aria-label={`View ${project.title} on GitHub`}
+            >
+              <Github className="w-5 h-5" />
+              <span className="text-sm font-medium group-hover:underline">Code</span>
+            </a>
+            <a
+              href={project.pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
+              aria-label={`Download ${project.title} PDF`}
+            >
+              <FileText className="w-5 h-5" />
+              <span className="text-sm font-medium group-hover:underline">Paper</span>
+            </a>
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-auto flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors"
+              aria-label={`Learn more about ${project.title}`}
+            >
+              <span className="font-medium">Details</span>
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  )
+}
+
+export function ProjectPortfolio() {
+  return (
+    <section
+      className="py-16 md:py-24 px-4 bg-background"
+      aria-labelledby="portfolio-heading"
+    >
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
+        <motion.header
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <p className="text-sm md:text-base text-primary uppercase tracking-[0.2em] font-medium mb-3">
+            Graduate Research
+          </p>
+          <h2
+            id="portfolio-heading"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground tracking-tight"
+          >
+            Project Portfolio
+          </h2>
+          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+            A showcase of my Georgia Tech MSCS projects bridging HCI research with practical engineering solutions.
+          </p>
+        </motion.header>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {projects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="mt-12 text-center"
+        >
+          <p className="text-muted-foreground text-sm">
+            Interested in my research? {" "}
+            <a href="#contact" className="text-primary hover:underline font-medium">
+              {"Let's connect"}
+            </a>
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
