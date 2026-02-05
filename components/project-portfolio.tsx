@@ -44,7 +44,7 @@ const projects: Project[] = [
     subtitle: "Ubiquitous Computing",
     description:
       "Co-developed a wearable gesture-recognition prototype for seamless smart home control. Utilized an Arduino-based glove with accelerometer, achieving 87% accuracy via Random Forest classifier while mitigating the \"Midas touch\" problem.",
-    videoId: "bN-jOWbHBhg",
+    videoId: "Ry99R262HbM",
     githubUrl: "#",
     pdfUrl: "/smartglove.pdf",
     tags: ["Arduino", "ML", "Wearables", "HCI"],
