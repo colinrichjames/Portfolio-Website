@@ -23,7 +23,7 @@ const projects: Project[] = [
     description:
       "Developed a full-stack web application (React/Node.js) featuring an OpenAI-driven assistant named \"Roger\" to provide real-time DIY feedback based on adult learning theories.",
     videoId: "uYPU2nKgteI",
-    githubUrl: "#",
+    githubUrl: "https://github.com/colinrichjames/MKRHOME-Project",
     pdfUrl: "/mkrhome.pdf",
     tags: ["React", "Node.js", "OpenAI", "HCI"],
   },
