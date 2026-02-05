@@ -22,7 +22,7 @@ const projects: Project[] = [
     subtitle: "AI-Powered DIY Learning",
     description:
       "Developed a full-stack web application (React/Node.js) featuring an OpenAI-driven assistant named \"Roger\" to provide real-time DIY feedback based on adult learning theories.",
-    videoId: "dQw4w9WgXcQ", // Replace with actual video ID
+    videoId: "uYPU2nKgteI",
     githubUrl: "#",
     pdfUrl: "#",
     tags: ["React", "Node.js", "OpenAI", "HCI"],
@@ -33,7 +33,7 @@ const projects: Project[] = [
     subtitle: "Video Game Design",
     description:
       "Led a team of three to build a real-time simulation from the ground up, managing technical debt and concurrency logic in a collaborative environment.",
-    videoId: "dQw4w9WgXcQ", // Replace with actual video ID
+    videoId: "OvySUf1DCRs",
     githubUrl: "#",
     pdfUrl: "#",
     tags: ["Unity", "C#", "Game Design", "Team Lead"],
@@ -44,7 +44,7 @@ const projects: Project[] = [
     subtitle: "Ubiquitous Computing",
     description:
       "Co-developed a wearable gesture-recognition prototype for seamless smart home control. Utilized an Arduino-based glove with accelerometer, achieving 87% accuracy via Random Forest classifier while mitigating the \"Midas touch\" problem.",
-    videoId: "dQw4w9WgXcQ", // Replace with actual video ID
+    videoId: "bN-jOWbHBhg",
     githubUrl: "#",
     pdfUrl: "#",
     tags: ["Arduino", "ML", "Wearables", "HCI"],
@@ -76,7 +76,7 @@ function VideoThumbnail({ videoId, title }: { videoId: string; title: string }) 
     >
       {/* YouTube Thumbnail */}
       <img
-        src={`https://youtu.be/uYPU2nKgteI`}
+        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
         alt={`${title} video thumbnail`}
         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         onError={(e) => {
