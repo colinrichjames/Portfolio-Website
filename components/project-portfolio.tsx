@@ -1,8 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Github, FileText, Play, ExternalLink } from "lucide-react"
-import { useState } from "react"
+import { Github, FileText, Play, ExternalLink, X } from "lucide-react"
+import { useState, useEffect, useCallback } from "react"
 
 interface Project {
   id: string
@@ -24,7 +24,7 @@ const projects: Project[] = [
       "Developed a full-stack web application (React/Node.js) featuring an OpenAI-driven assistant named \"Roger\" to provide real-time DIY feedback based on adult learning theories.",
     videoId: "uYPU2nKgteI",
     githubUrl: "#",
-    pdfUrl: "#",
+    pdfUrl: "/mkrhome.pdf",
     tags: ["React", "Node.js", "OpenAI", "HCI"],
   },
   {
@@ -46,7 +46,7 @@ const projects: Project[] = [
       "Co-developed a wearable gesture-recognition prototype for seamless smart home control. Utilized an Arduino-based glove with accelerometer, achieving 87% accuracy via Random Forest classifier while mitigating the \"Midas touch\" problem.",
     videoId: "bN-jOWbHBhg",
     githubUrl: "#",
-    pdfUrl: "#",
+    pdfUrl: "/smartglove.pdf",
     tags: ["Arduino", "ML", "Wearables", "HCI"],
   },
 ]
@@ -98,8 +98,74 @@ function VideoThumbnail({ videoId, title }: { videoId: string; title: string }) 
   )
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function PdfModal({ pdfUrl, title, onClose }: { pdfUrl: string; title: string; onClose: () => void }) {
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+    },
+    [onClose],
+  )
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown)
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown)
+      document.body.style.overflow = ""
+    }
+  }, [handleKeyDown])
+
   return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${title} paper`}
+    >
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        onClick={onClose}
+      />
+
+      {/* Modal Content */}
+      <div className="relative w-[90vw] h-[85vh] max-w-5xl bg-background rounded-xl border border-border shadow-2xl flex flex-col overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-3 border-b border-border">
+          <h3 className="text-lg font-semibold text-foreground">{title} — Paper</h3>
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+            aria-label="Close modal"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* PDF iframe */}
+        <iframe
+          src={pdfUrl}
+          title={`${title} paper`}
+          className="flex-1 w-full"
+        />
+      </div>
+    </div>
+  )
+}
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const [pdfOpen, setPdfOpen] = useState(false)
+  const hasPdf = project.pdfUrl !== "#"
+
+  return (
+    <>
+    {pdfOpen && hasPdf && (
+      <PdfModal
+        pdfUrl={project.pdfUrl}
+        title={project.title}
+        onClose={() => setPdfOpen(false)}
+      />
+    )}
     <motion.article
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -155,16 +221,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               <Github className="w-5 h-5" />
               <span className="text-sm font-medium group-hover:underline">Code</span>
             </a>
-            <a
-              href={project.pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
-              aria-label={`Download ${project.title} PDF`}
-            >
-              <FileText className="w-5 h-5" />
-              <span className="text-sm font-medium group-hover:underline">Paper</span>
-            </a>
+            {hasPdf && (
+              <button
+                onClick={() => setPdfOpen(true)}
+                className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group cursor-pointer"
+                aria-label={`View ${project.title} paper`}
+              >
+                <FileText className="w-5 h-5" />
+                <span className="text-sm font-medium group-hover:underline">Paper</span>
+              </button>
+            )}
             <a
               href={project.githubUrl}
               target="_blank"
@@ -179,6 +245,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
       </div>
     </motion.article>
+    </>
   )
 }
 
