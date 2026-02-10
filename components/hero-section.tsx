@@ -8,11 +8,11 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="min-h-[100dvh] flex flex-col relative md:snap-start"
+      className="min-h-[100svh] flex flex-col relative md:snap-start"
       aria-labelledby="hero-heading"
     >
       {/* Background Image - B&W Graduation Photo */}
-      <div className="relative h-[45vh] md:h-[50vh] w-full overflow-hidden">
+      <div className="relative h-[35vh] md:h-[50vh] w-full overflow-hidden">
         <Image
           src="/images/colin-graduation.jpeg"
           alt=""
@@ -26,16 +26,16 @@ export function HeroSection() {
       </div>
 
       {/* Content Container */}
-      <div className="relative flex-1 flex flex-col items-center px-6 pb-12">
+      <div className="relative flex-1 flex flex-col items-center justify-start pt-0 md:pt-0 md:justify-start px-6 pb-16">
         {/* Circular Headshot - Overlapping the banner */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="relative -mt-20 md:-mt-24 mb-6"
+          className="relative -mt-16 md:-mt-24 mb-4 md:mb-6"
         >
           <div className="absolute inset-0 rounded-full bg-primary/30 blur-xl scale-110" />
-          <div className="relative w-48 h-48 md:w-60 md:h-60 rounded-full border-4 border-background overflow-hidden shadow-xl">
+          <div className="relative w-36 h-36 md:w-60 md:h-60 rounded-full border-4 border-background overflow-hidden shadow-xl">
             <Image
               src="/images/colin-headshot.jpeg"
               alt="Colin James - Engineering Leader"
@@ -58,7 +58,7 @@ export function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.3 }}
-            className="text-lg md:text-xl text-primary font-medium mb-3"
+            className="text-lg md:text-xl text-primary font-medium mb-1.5 md:mb-3"
           >
             {"Hey, y'all!"}
           </motion.p>
