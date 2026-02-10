@@ -1,10 +1,73 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { ChevronDown, MapPin } from "lucide-react"
 import Image from "next/image"
 
+const SESSION_KEY = "hero-animated"
+
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.18,
+      delayChildren: 0.5,
+    },
+  },
+}
+
+const liftItem = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+}
+
+const springTransition = {
+  type: "spring" as const,
+  stiffness: 100,
+  damping: 20,
+}
+
+const defaultTransition = {
+  duration: 0.5,
+  ease: "easeOut" as const,
+}
+
+const hatWiggle = {
+  hidden: { rotate: 0 },
+  show: {
+    rotate: [0, -15, 12, -8, 5, 0],
+    transition: { duration: 0.5, ease: "easeInOut" },
+  },
+}
+
 export function HeroSection() {
+  const [shouldAnimate, setShouldAnimate] = useState(false)
+  const [checked, setChecked] = useState(false)
+
+  useEffect(() => {
+    const alreadyPlayed = sessionStorage.getItem(SESSION_KEY)
+    if (!alreadyPlayed) {
+      setShouldAnimate(true)
+      sessionStorage.setItem(SESSION_KEY, "1")
+    }
+    setChecked(true)
+  }, [])
+
+  // Don't render until we've checked sessionStorage to avoid flash
+  if (!checked) {
+    return (
+      <section
+        id="hero"
+        className="min-h-[100svh] flex flex-col relative md:snap-start"
+        aria-labelledby="hero-heading"
+      />
+    )
+  }
+
+  const initial = shouldAnimate ? "hidden" : "show"
+  const animate = "show"
+
   return (
     <section
       id="hero"
@@ -29,9 +92,9 @@ export function HeroSection() {
       <div className="relative flex-1 flex flex-col items-center justify-start pt-0 md:pt-0 md:justify-start px-6 pb-16">
         {/* Circular Headshot - Overlapping the banner */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={shouldAnimate ? { opacity: 0, scale: 0.9 } : false}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: shouldAnimate ? 0.1 : 0 }}
           className="relative -mt-16 md:-mt-24 mb-4 md:mb-6"
         >
           <div className="absolute inset-0 rounded-full bg-primary/30 blur-xl scale-110" />
@@ -46,29 +109,34 @@ export function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Text Content */}
+        {/* Text Content — staggered reveal */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          variants={staggerContainer}
+          initial={initial}
+          animate={animate}
           className="text-center max-w-md mx-auto"
         >
-          {/* Greeting */}
+          {/* 1. Greeting + Cowboy Hat */}
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-            className="text-lg md:text-xl text-primary font-medium mb-1.5 md:mb-3"
+            variants={liftItem}
+            transition={defaultTransition}
+            className="text-lg md:text-xl text-primary font-medium mb-1.5 md:mb-3 flex items-center justify-center gap-1.5"
           >
             {"Hey, y'all!"}
+            <motion.span
+              variants={hatWiggle}
+              className="inline-block text-xl md:text-2xl"
+              aria-hidden="true"
+            >
+              🤠
+            </motion.span>
           </motion.p>
 
-          {/* Name with Credential */}
+          {/* 2. Name with Credential */}
           <motion.h1
             id="hero-heading"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            variants={liftItem}
+            transition={springTransition}
             className="text-2xl md:text-3xl font-medium text-foreground mb-4 tracking-tight"
           >
             {"I'm "}
@@ -76,52 +144,44 @@ export function HeroSection() {
             <span className="text-primary/70 text-lg md:text-xl font-normal">, MSCS</span>
           </motion.h1>
 
-          {/* Headline */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="text-lg md:text-xl text-foreground/90 leading-relaxed text-pretty mb-4"
-          >
-            <span className="font-semibold text-primary">Engineering Leader</span>
-            {" with a "}
-            <span className="font-semibold text-primary">Business Core</span>
-          </motion.p>
-
-          {/* Location */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex items-center justify-center gap-1.5 text-muted-foreground"
-          >
-            <MapPin className="w-4 h-4" aria-hidden="true" />
-            <span className="text-sm">Seattle, Washington</span>
+          {/* 3. Headline + Location */}
+          <motion.div variants={liftItem} transition={springTransition}>
+            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed text-pretty mb-2">
+              <span className="font-semibold text-primary">Engineering Leader</span>
+              {" with a "}
+              <span className="font-semibold text-primary">Business Core</span>
+            </p>
+            <div className="flex items-center justify-center gap-1.5 text-muted-foreground">
+              <MapPin className="w-4 h-4" aria-hidden="true" />
+              <span className="text-sm">Seattle, Washington</span>
+            </div>
           </motion.div>
-        </motion.div>
 
-        {/* View Portfolio button */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.a
-            href="#projects"
-            onClick={(e) => {
-              e.preventDefault()
-              document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
-            }}
-            animate={{ y: [0, 6, 0] }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-primary text-primary text-sm font-medium tracking-wide hover:bg-primary/10 transition-colors cursor-pointer"
+          {/* 4. View Portfolio Button */}
+          <motion.div
+            variants={liftItem}
+            transition={defaultTransition}
+            className="mt-8"
           >
-            View Portfolio
-            <ChevronDown className="w-4 h-4" aria-hidden="true" />
-          </motion.a>
+            <motion.a
+              href="#projects"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
+              }}
+              animate={{ y: [0, 6, 0] }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{
+                y: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+                scale: { type: "spring", stiffness: 400, damping: 15 },
+              }}
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-primary text-primary text-sm font-medium tracking-wide hover:bg-primary/10 transition-colors cursor-pointer"
+            >
+              View Portfolio
+              <ChevronDown className="w-4 h-4" aria-hidden="true" />
+            </motion.a>
+          </motion.div>
         </motion.div>
       </div>
     </section>
