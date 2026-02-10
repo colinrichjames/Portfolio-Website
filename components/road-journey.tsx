@@ -174,10 +174,7 @@ export function RoadJourney() {
           transition={{ duration: 0.5 }}
           className="mt-24 pt-12 border-t border-border"
         >
-          <h3 className="text-xl font-semibold text-center text-primary mb-8">
-            Total Impact
-          </h3>
-          <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
+<div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
             <MetricCallout
               value="$100M+"
               label="Projected Savings"
