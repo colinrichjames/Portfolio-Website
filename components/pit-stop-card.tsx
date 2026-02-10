@@ -28,8 +28,8 @@ export function PitStopCard({
 
   return (
     <motion.article
-      initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-      animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: isEven ? -50 : 50 }}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`relative w-full max-w-sm mx-auto md:mx-0 ${
         isEven ? "md:mr-auto md:pr-16" : "md:ml-auto md:pl-16"
@@ -48,7 +48,7 @@ export function PitStopCard({
       </motion.div>
 
       {/* Card content */}
-      <div className="p-5 bg-card border border-border rounded-xl shadow-sm">
+      <div className="p-5 bg-card border border-border rounded-2xl shadow-sm">
         <header className="mb-3">
           <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">
             {date}

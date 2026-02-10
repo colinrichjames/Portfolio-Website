@@ -68,6 +68,9 @@ export function RoadJourney() {
   // Car position along the road (0 to 100%)
   const carProgress = useTransform(scrollYProgress, [0, 1], [0, 100])
 
+  // Growing line height
+  const lineHeight = useTransform(scrollYProgress, [0.05, 0.95], ["0%", "100%"])
+
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return
@@ -81,8 +84,8 @@ export function RoadJourney() {
       const scrollProgress = Math.max(0, Math.min(1, (viewportHeight - containerTop) / (containerHeight + viewportHeight)))
       
       const newVisibleCards = pitStops.map((_, index) => {
-        const cardThreshold = (index + 0.5) / pitStops.length
-        return scrollProgress > cardThreshold * 0.8
+        const cardThreshold = (index + 0.3) / pitStops.length
+        return scrollProgress > cardThreshold * 0.6
       })
 
       setVisibleCards(newVisibleCards)
@@ -103,13 +106,13 @@ export function RoadJourney() {
       <div className="max-w-4xl mx-auto">
         {/* Section heading */}
         <motion.header
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <h2 id="journey-heading" className="text-2xl md:text-3xl font-bold text-primary mb-2">
+          <h2 id="journey-heading" className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary tracking-tighter mb-2">
             The Roadmap
           </h2>
           <p className="text-muted-foreground">A journey through innovation and leadership</p>
@@ -117,13 +120,20 @@ export function RoadJourney() {
 
         {/* Road container */}
         <div className="relative">
-          {/* The Road (dotted line) */}
+          {/* The Road (dotted line track) */}
           <div
             className="absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 z-0"
             aria-hidden="true"
           >
-            <div className="w-full h-full border-l-2 border-dashed border-border" />
+            <div className="w-full h-full border-l-2 border-dashed border-border/40" />
           </div>
+
+          {/* Growing line (scroll-driven) */}
+          <motion.div
+            style={{ height: lineHeight }}
+            className="absolute left-1/2 top-0 w-0.5 -translate-x-1/2 z-[1] bg-primary origin-top"
+            aria-hidden="true"
+          />
 
           {/* Animated Car */}
           <motion.div

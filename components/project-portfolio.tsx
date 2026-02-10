@@ -56,7 +56,7 @@ function VideoThumbnail({ videoId, title }: { videoId: string; title: string }) 
 
   if (isPlaying) {
     return (
-      <div className="relative w-full aspect-video rounded-lg overflow-hidden">
+      <div className="relative w-full aspect-video rounded-2xl overflow-hidden">
         <iframe
           src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
           title={title}
@@ -71,7 +71,7 @@ function VideoThumbnail({ videoId, title }: { videoId: string; title: string }) 
   return (
     <button
       onClick={() => setIsPlaying(true)}
-      className="relative w-full aspect-video rounded-lg overflow-hidden group cursor-pointer bg-secondary/50"
+      className="relative w-full aspect-video rounded-2xl overflow-hidden group cursor-pointer bg-secondary/50"
       aria-label={`Play ${title} video`}
     >
       {/* YouTube Thumbnail */}
@@ -174,7 +174,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       className="flex flex-col h-full"
     >
       {/* Card Container */}
-      <div className="flex flex-col h-full bg-card/50 rounded-xl border border-border/50 overflow-hidden hover:border-primary/30 transition-colors duration-300">
+      <div className="flex flex-col h-full bg-card/30 backdrop-blur-md rounded-3xl border border-white/10 shadow-lg overflow-hidden hover:border-primary/30 transition-colors duration-300">
         {/* Header */}
         <div className="p-5 pb-3 text-center">
           <h3 className="text-xl md:text-2xl font-bold text-primary uppercase tracking-wide text-balance">
@@ -249,10 +249,10 @@ export function ProjectPortfolio() {
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.header
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           className="text-center mb-12"
         >
           <p className="text-sm md:text-base text-primary uppercase tracking-[0.2em] font-medium mb-3">
@@ -260,7 +260,7 @@ export function ProjectPortfolio() {
           </p>
           <h2
             id="portfolio-heading"
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tighter"
           >
             Project Portfolio
           </h2>
@@ -270,7 +270,7 @@ export function ProjectPortfolio() {
         </motion.header>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}

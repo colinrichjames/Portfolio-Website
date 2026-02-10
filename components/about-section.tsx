@@ -31,10 +31,10 @@ export function AboutSection() {
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         {/* Section Label */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           className="text-primary text-sm font-medium tracking-[0.2em] uppercase mb-6"
         >
           About Colin
@@ -44,14 +44,14 @@ export function AboutSection() {
         <div className="grid md:grid-cols-2 gap-8 md:gap-16 mb-16 md:mb-20">
           {/* Left - Heading */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
             <h2 
               id="about-heading"
-              className="text-3xl md:text-4xl lg:text-5xl font-light text-foreground leading-tight tracking-tight"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight tracking-tighter"
             >
               <span className="text-primary">Leadership</span> That{" "}
               <span className="block">Inspires Change</span>

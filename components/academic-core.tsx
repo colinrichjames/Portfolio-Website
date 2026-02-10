@@ -32,18 +32,21 @@ export function AcademicCore() {
     >
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           className="mb-10"
         >
-          <p
-            id="academic-core-heading"
-            className="text-sm md:text-base text-primary uppercase tracking-[0.2em] font-medium mb-3"
-          >
+          <p className="text-sm md:text-base text-primary uppercase tracking-[0.2em] font-medium mb-3">
             Professional & Academic Core
           </p>
+          <h2
+            id="academic-core-heading"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tighter"
+          >
+            Skills & Experience
+          </h2>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6">

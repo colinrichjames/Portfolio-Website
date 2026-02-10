@@ -113,7 +113,9 @@ export function HeroSection() {
               document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
             }}
             animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-primary text-primary text-sm font-medium tracking-wide hover:bg-primary/10 transition-colors cursor-pointer"
           >
             View Portfolio

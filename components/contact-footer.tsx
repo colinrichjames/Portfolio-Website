@@ -37,17 +37,17 @@ export function ContactFooter() {
       <div className="max-w-3xl mx-auto text-center">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <p className="text-sm md:text-base text-primary uppercase tracking-[0.2em] font-medium mb-3">
             Contact
           </p>
           <h2
             id="contact-heading"
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tighter"
           >
             {"Let's Build the Future Together"}
           </h2>
