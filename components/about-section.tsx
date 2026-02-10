@@ -130,6 +130,22 @@ export function AboutSection() {
           ))}
         </div>
 
+        {/* Section Divider */}
+        <hr className="border-border mb-16 md:mb-20" />
+
+        {/* Professional & Academic Core */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-10"
+        >
+          <p className="text-sm md:text-base text-primary uppercase tracking-[0.2em] font-medium mb-3">
+            Professional & Academic Core
+          </p>
+        </motion.div>
+
         {/* Stats - Card Grid */}
         <div className="grid md:grid-cols-3 gap-6">
           {stats.map((stat, index) => {
