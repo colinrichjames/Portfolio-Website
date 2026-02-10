@@ -242,7 +242,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 export function ProjectPortfolio() {
   return (
     <section
-      className="py-16 md:py-24 px-4 bg-background"
+      id="projects"
+      className="py-16 md:py-24 px-4 bg-background scroll-mt-4"
       aria-labelledby="portfolio-heading"
     >
       <div className="max-w-6xl mx-auto">

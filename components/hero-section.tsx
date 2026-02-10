@@ -99,32 +99,26 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator */}
+        {/* View Portfolio button */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 1 }}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
-          <a
-            href="#about"
+          <motion.a
+            href="#projects"
             onClick={(e) => {
               e.preventDefault()
-              document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+              document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
             }}
-            className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group"
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-primary text-primary text-sm font-medium tracking-wide hover:bg-primary/10 transition-colors cursor-pointer"
           >
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-              className="flex flex-col items-center gap-2"
-            >
-              <span className="text-xs font-medium tracking-wide group-hover:text-primary transition-colors">
-                Learn more about me
-              </span>
-              <ChevronDown className="w-5 h-5" aria-hidden="true" />
-            </motion.div>
-          </a>
+            View Portfolio
+            <ChevronDown className="w-4 h-4" aria-hidden="true" />
+          </motion.a>
         </motion.div>
       </div>
     </section>
