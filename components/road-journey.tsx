@@ -21,14 +21,14 @@ const pitStops = [
   },
   {
     city: "Atlanta",
-    title: "Technical Deep Dive & HCI Research",
-    institute: "Georgia Tech - MSCS",
+    title: "Master of Science in CS: Engineering & Design Strategy",
+    institute: "Georgia Tech",
     date: "2023 - 2025",
     description:
       "MSCS with a specialization in Human-Computer Interaction (HCI). Mastered the intersection of backend architecture and user-centered design through advanced coursework.",
     metrics: [
       { value: "3.8", label: "GPA" },
-      { value: "HCI", label: "Specialization" },
+      { value: "MSCS", label: "Degree" },
     ],
   },
   {
