@@ -169,7 +169,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     <motion.article
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: "100px" }}
       transition={{ duration: 0.5, delay: index * 0.15 }}
       className="flex flex-col h-full"
     >
