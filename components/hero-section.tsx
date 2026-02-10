@@ -34,7 +34,7 @@ export function HeroSection() {
           className="relative -mt-20 md:-mt-24 mb-6"
         >
           <div className="absolute inset-0 rounded-full bg-primary/30 blur-xl scale-110" />
-          <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full border-4 border-background overflow-hidden shadow-xl">
+          <div className="relative w-48 h-48 md:w-60 md:h-60 rounded-full border-4 border-background overflow-hidden shadow-xl">
             <Image
               src="/images/colin-headshot.jpeg"
               alt="Colin James - Engineering Leader"
