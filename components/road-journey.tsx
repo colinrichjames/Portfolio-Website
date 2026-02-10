@@ -34,7 +34,7 @@ const pitStops = [
   {
     city: "Dallas",
     title: "Technology Development Program",
-    institute: "AT&T - Technology Development Program",
+    institute: "AT&T",
     date: "2021 - 2023",
     description:
       "Selected for AT&T's elite Technology Development Program. Executed a 1.5-year residency focused on Technical Business Management (TBM). Managed high-stakes rotations in Software Engineering and UX Design, architecting a $18M Azure migration and self-install fiber journeys.",
