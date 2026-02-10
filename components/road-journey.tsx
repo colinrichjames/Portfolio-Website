@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { MapPin } from "lucide-react"
+import { CarIcon } from "@/components/car-icon"
 
 const stops = [
   {
@@ -155,12 +156,7 @@ export function RoadJourney() {
             style={{ top: carTop, x: "-50%", y: "-50%" }}
             aria-hidden="true"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/ramblinwreck.png"
-              alt=""
-              className="w-10 md:w-14 h-auto rotate-90"
-            />
+            <CarIcon className="w-10 md:w-14 text-primary rotate-90" />
           </motion.div>
 
           {/* Stop cards */}
