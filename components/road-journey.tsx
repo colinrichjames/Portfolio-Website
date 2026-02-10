@@ -244,7 +244,7 @@ export function RoadJourney() {
                     </p>
 
                     {stop.metrics && stop.metrics.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-2 justify-center">
                         {stop.metrics.map((m) => (
                           <div
                             key={m.label}
