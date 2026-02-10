@@ -109,7 +109,7 @@ export function ContactFooter() {
         className="mt-16 pt-8 border-t border-border text-center"
       >
         <p className="text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Colin Richard James. Built with accessibility in mind.
+          &copy; {new Date().getFullYear()} Colin Richard James.
         </p>
       </motion.footer>
     </section>
