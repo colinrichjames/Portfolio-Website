@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { CarIcon } from "./car-icon"
 import { PitStopCard } from "./pit-stop-card"
-import { MetricCallout } from "./metric-callout"
 
 const pitStops = [
   {
@@ -60,7 +59,6 @@ const pitStops = [
 export function RoadJourney() {
   const containerRef = useRef<HTMLElement>(null)
   const [visibleCards, setVisibleCards] = useState<boolean[]>(new Array(pitStops.length).fill(false))
-  const [metricsVisible, setMetricsVisible] = useState(false)
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -88,7 +86,6 @@ export function RoadJourney() {
       })
 
       setVisibleCards(newVisibleCards)
-      setMetricsVisible(scrollProgress > 0.9)
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -166,29 +163,6 @@ export function RoadJourney() {
           </div>
         </div>
 
-        {/* Impact Metrics Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mt-24 pt-12 border-t border-border"
-        >
-<div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
-            <MetricCallout
-              value="$100M+"
-              label="Projected Savings"
-              isVisible={metricsVisible}
-              delay={0}
-            />
-            <MetricCallout
-              value="16,000+"
-              label="Users Impacted"
-              isVisible={metricsVisible}
-              delay={0.1}
-            />
-          </div>
-        </motion.div>
       </div>
     </section>
   )

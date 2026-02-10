@@ -275,21 +275,6 @@ export function ProjectPortfolio() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-12 text-center"
-        >
-          <p className="text-muted-foreground text-sm">
-            Interested in my research? {" "}
-            <a href="#contact" className="text-primary hover:underline font-medium">
-              {"Let's connect"}
-            </a>
-          </p>
-        </motion.div>
       </div>
     </section>
   )
