@@ -33,11 +33,11 @@ const defaultTransition = {
   ease: "easeOut" as const,
 }
 
-const hatWiggle = {
+const waveHand = {
   hidden: { rotate: 0 },
   show: {
-    rotate: [0, -15, 12, -8, 5, 0],
-    transition: { duration: 0.5, ease: "easeInOut" },
+    rotate: [0, 20, -15, 20, -10, 15, 0],
+    transition: { duration: 0.6, ease: "easeInOut" },
   },
 }
 
@@ -124,11 +124,12 @@ export function HeroSection() {
           >
             {"Hey, y'all!"}
             <motion.span
-              variants={hatWiggle}
+              variants={waveHand}
+              style={{ transformOrigin: "70% 80%" }}
               className="inline-block text-xl md:text-2xl"
               aria-hidden="true"
             >
-              🤠
+              👋
             </motion.span>
           </motion.p>
 
