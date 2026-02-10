@@ -9,26 +9,14 @@ import { MetricCallout } from "./metric-callout"
 const pitStops = [
   {
     city: "Seattle",
-    title: "Business & Technical Foundation",
-    institute: "UW Foster School of Business",
-    date: "2017 - 2020",
+    title: "Engineering Product Lead",
+    institute: "AT&T",
+    date: "2024 - Present",
     description:
-      "Earned a Bachelor's in Management Information Systems, focusing on the critical intersection of business strategy and technical architecture.",
+      "Product Owner and Strategic Lead for the Unified Front Door (UFD) ecosystem. I orchestrate cross-functional teams across Engineering, DevOps, and Data Science to manage the intake lifecycle for 16,000+ users. While leading without direct reports, I define the product vision, set the technical tone for our SDLC, and bridge the gap between 6+ stakeholder groups and our core development teams.",
     metrics: [
-      { value: "MIS", label: "Degree" },
-      { value: "3.5", label: "GPA" },
-    ],
-  },
-  {
-    city: "Dallas",
-    title: "Technical Business Management",
-    institute: "AT&T - Technology Development Program",
-    date: "2021 - 2024",
-    description:
-      "Selected for AT&T's elite Technology Development Program. Executed a 1.5-year residency focused on Technical Business Management (TBM). Managed high-stakes rotations in Software Engineering and UX Design, architecting a $18M Azure migration and self-install fiber journeys.",
-    metrics: [
-      { value: "$18M", label: "Cost Savings" },
-      { value: "2", label: "Rotations" },
+      { value: "16K+", label: "Users" },
+      { value: "6+", label: "Stakeholder Groups" },
     ],
   },
   {
@@ -44,15 +32,27 @@ const pitStops = [
     ],
   },
   {
-    city: "Seattle",
-    title: "Engineering Product Lead",
-    institute: "AT&T",
-    date: "2024 - Present",
+    city: "Dallas",
+    title: "Technology Development Program",
+    institute: "AT&T - Technology Development Program",
+    date: "2021 - 2023",
     description:
-      "Product Owner and Strategic Lead for the Unified Front Door (UFD) ecosystem. I orchestrate cross-functional teams across Engineering, DevOps, and Data Science to manage the intake lifecycle for 16,000+ users. While leading without direct reports, I define the product vision, set the technical tone for our SDLC, and bridge the gap between 6+ stakeholder groups and our core development teams.",
+      "Selected for AT&T's elite Technology Development Program. Executed a 1.5-year residency focused on Technical Business Management (TBM). Managed high-stakes rotations in Software Engineering and UX Design, architecting a $18M Azure migration and self-install fiber journeys.",
     metrics: [
-      { value: "16K+", label: "Users" },
-      { value: "6+", label: "Stakeholder Groups" },
+      { value: "$18M", label: "Cost Savings" },
+      { value: "2", label: "Rotations" },
+    ],
+  },
+  {
+    city: "Seattle",
+    title: "Business & Technical Foundation",
+    institute: "UW Foster School of Business",
+    date: "2017 - 2020",
+    description:
+      "Earned a Bachelor's in Management Information Systems, focusing on the critical intersection of business strategy and technical architecture.",
+    metrics: [
+      { value: "MIS", label: "Degree" },
+      { value: "3.5", label: "GPA" },
     ],
   },
 ]
