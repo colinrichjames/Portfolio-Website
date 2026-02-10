@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Github, FileText, Play, ExternalLink, X } from "lucide-react"
+import { Github, FileText, Play, X } from "lucide-react"
 import { useState, useEffect, useCallback } from "react"
 
 interface Project {
@@ -231,16 +231,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 <span className="text-sm font-medium group-hover:underline">Paper</span>
               </button>
             )}
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-auto flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors"
-              aria-label={`Learn more about ${project.title}`}
-            >
-              <span className="font-medium">Details</span>
-              <ExternalLink className="w-4 h-4" />
-            </a>
           </div>
         </div>
       </div>
