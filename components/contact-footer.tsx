@@ -8,7 +8,7 @@ const links = [
   {
     icon: Linkedin,
     label: "LinkedIn",
-    href: "https://linkedin.com/in/colinrichjames",
+    href: "https://www.linkedin.com/in/colin-r-james/",
   },
   {
     icon: Globe,
