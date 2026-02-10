@@ -7,7 +7,8 @@ import Image from "next/image"
 export function HeroSection() {
   return (
     <section
-      className="min-h-[100dvh] flex flex-col relative"
+      id="hero"
+      className="min-h-[100dvh] flex flex-col relative md:snap-start"
       aria-labelledby="hero-heading"
     >
       {/* Background Image - B&W Graduation Photo */}

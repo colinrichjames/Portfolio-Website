@@ -27,7 +27,8 @@ const stats = [
 export function AcademicCore() {
   return (
     <section
-      className="py-16 md:py-24 bg-background"
+      id="core"
+      className="py-16 md:py-24 bg-background md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
       aria-labelledby="academic-core-heading"
     >
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">

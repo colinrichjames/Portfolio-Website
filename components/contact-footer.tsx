@@ -31,7 +31,7 @@ export function ContactFooter() {
   return (
     <section
       id="contact"
-      className="py-16 md:py-24 px-6 bg-secondary/30"
+      className="py-16 md:py-24 px-6 bg-secondary/30 md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
       aria-labelledby="contact-heading"
     >
       <div className="max-w-3xl mx-auto text-center">

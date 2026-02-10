@@ -59,6 +59,7 @@ const pitStops = [
 export function RoadJourney() {
   const containerRef = useRef<HTMLElement>(null)
   const [visibleCards, setVisibleCards] = useState<boolean[]>(new Array(pitStops.length).fill(false))
+  const [activeCardIndex, setActiveCardIndex] = useState<number>(-1)
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -89,6 +90,24 @@ export function RoadJourney() {
       })
 
       setVisibleCards(newVisibleCards)
+
+      // Determine active card — the one closest to viewport center
+      const cards = containerRef.current.querySelectorAll("[data-pit-stop]")
+      const viewportCenter = viewportHeight / 2
+      let closestIndex = -1
+      let closestDistance = Infinity
+
+      cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect()
+        const cardCenter = rect.top + rect.height / 2
+        const distance = Math.abs(cardCenter - viewportCenter)
+        if (distance < closestDistance && newVisibleCards[index]) {
+          closestDistance = distance
+          closestIndex = index
+        }
+      })
+
+      setActiveCardIndex(closestIndex)
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -100,7 +119,8 @@ export function RoadJourney() {
   return (
     <section
       ref={containerRef}
-      className="relative py-16 md:py-24 px-4"
+      id="roadmap"
+      className="relative py-16 md:py-24 px-4 md:snap-start"
       aria-labelledby="journey-heading"
     >
       <div className="max-w-4xl mx-auto">
@@ -168,6 +188,7 @@ export function RoadJourney() {
                 {...stop}
                 index={index}
                 isVisible={visibleCards[index]}
+                isActive={activeCardIndex === index}
               />
             ))}
           </div>

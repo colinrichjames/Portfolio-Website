@@ -25,7 +25,7 @@ export function AboutSection() {
   return (
     <section 
       id="about"
-      className="relative py-16 md:py-24 bg-background overflow-hidden scroll-mt-4"
+      className="relative py-16 md:py-24 bg-background overflow-hidden scroll-mt-4 md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
       aria-labelledby="about-heading"
     >
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">

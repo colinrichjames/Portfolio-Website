@@ -12,6 +12,7 @@ interface PitStopCardProps {
   metrics?: { value: string; label: string }[]
   index: number
   isVisible: boolean
+  isActive: boolean
 }
 
 export function PitStopCard({
@@ -23,13 +24,21 @@ export function PitStopCard({
   metrics,
   index,
   isVisible,
+  isActive,
 }: PitStopCardProps) {
   const isEven = index % 2 === 0
 
+  const getAnimateState = () => {
+    if (!isVisible) return { opacity: 0, y: 40, scale: 1 }
+    if (isActive) return { opacity: 1, y: 0, scale: 1.02 }
+    return { opacity: 0.5, y: 0, scale: 0.97 }
+  }
+
   return (
     <motion.article
-      initial={{ opacity: 0, y: 40 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      data-pit-stop
+      initial={{ opacity: 0, y: 40, scale: 1 }}
+      animate={getAnimateState()}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`relative w-full max-w-sm mx-auto md:mx-0 ${
         isEven ? "md:mr-auto md:pr-16" : "md:ml-auto md:pl-16"
