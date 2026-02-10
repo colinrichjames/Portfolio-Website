@@ -9,50 +9,50 @@ import { MetricCallout } from "./metric-callout"
 const pitStops = [
   {
     city: "Seattle",
-    title: "Engineering Leadership",
-    institute: "AT&T - Engineering Product Lead",
-    date: "2024 - Present",
+    title: "Business & Technical Foundation",
+    institute: "UW Foster School of Business",
+    date: "2017 - 2020",
     description:
-      "Orchestrating the Unified Front Door product launch as Engineering Product Lead. Directing UFD Assist AI development and leading Microsoft ecosystem integration (Quickbase, Power BI) across the SDLC for executive stakeholders.",
+      "Earned a Bachelor's in Management Information Systems, focusing on the critical intersection of business strategy and technical architecture.",
     metrics: [
-      { value: "16K+", label: "Users Impacted" },
-      { value: "AI", label: "Product Owner" },
-    ],
-  },
-  {
-    city: "Atlanta",
-    title: "Technical Engineering Deep Dive",
-    institute: "Georgia Tech - MSCS",
-    date: "2023 - 2025",
-    description:
-      "Earned Master of Science in Computer Science with a 4.0 GPA, specializing in Human-Computer Interaction. Completed coursework in ML, NLP, Game AI, Mobile Computing, and AI Ethics to bridge backend architecture with user-centered design.",
-    metrics: [
-      { value: "4.0", label: "GPA" },
-      { value: "HCI", label: "Specialization" },
+      { value: "MIS", label: "Degree" },
+      { value: "3.5", label: "GPA" },
     ],
   },
   {
     city: "Dallas",
-    title: "AT&T Headquarters & TDP",
+    title: "Technical Business Management",
     institute: "AT&T - Technology Development Program",
     date: "2021 - 2024",
     description:
-      "Selected for AT&T's competitive Technology Development Program. Led $18M Azure migration across 360+ apps, architected the COVID-era Self-Install fiber journey for 500K+ customers, and directed digital transformation of 2,000+ legacy systems.",
+      "Selected for AT&T's elite Technology Development Program. Executed a 1.5-year residency focused on Technical Business Management (TBM). Managed high-stakes rotations in Software Engineering and UX Design, architecting a $18M Azure migration and self-install fiber journeys.",
     metrics: [
-      { value: "$18M", label: "Cloud Migration" },
-      { value: "500K+", label: "Customers Served" },
+      { value: "$18M", label: "Cost Savings" },
+      { value: "2", label: "Rotations" },
+    ],
+  },
+  {
+    city: "Atlanta",
+    title: "Technical Deep Dive & HCI Research",
+    institute: "Georgia Tech - MSCS",
+    date: "2023 - 2025",
+    description:
+      "MSCS with a specialization in Human-Computer Interaction (HCI). Mastered the intersection of backend architecture and user-centered design through advanced coursework.",
+    metrics: [
+      { value: "3.8", label: "GPA" },
+      { value: "HCI", label: "Specialization" },
     ],
   },
   {
     city: "Seattle",
-    title: "Business Foundation",
-    institute: "UW Foster School of Business - MIS",
-    date: "2017 - 2020",
+    title: "Engineering Product Lead",
+    institute: "AT&T",
+    date: "2024 - Present",
     description:
-      "Earned Bachelor's in Management Information Systems. Partnered with UW's Principal Cybersecurity Advisor to conduct enterprise IT risk assessments. Proficiency in C#, Java, MySQL, Python, and cloud/network architecture fundamentals.",
+      "Product Owner and Strategic Lead for the Unified Front Door (UFD) ecosystem. I orchestrate cross-functional teams across Engineering, DevOps, and Data Science to manage the intake lifecycle for 16,000+ users. While leading without direct reports, I define the product vision, set the technical tone for our SDLC, and bridge the gap between 6+ stakeholder groups and our core development teams.",
     metrics: [
-      { value: "MIS", label: "Degree" },
-      { value: "3.5", label: "GPA" },
+      { value: "16K+", label: "Users" },
+      { value: "6+", label: "Stakeholder Groups" },
     ],
   },
 ]
