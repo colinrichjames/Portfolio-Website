@@ -48,7 +48,7 @@ const stops = [
     institute: "UW Foster School of Business",
     date: "2017 - 2020",
     description:
-      "Earned a Bachelor's in Management Information Systems, focusing on the critical intersection of business strategy and technical architecture.",
+      "Earned a Bachelor's degree in Management Information Systems, focusing on the critical intersection of business strategy and technical architecture.",
     metrics: [
       { value: "MIS", label: "Degree" },
       { value: "3.5", label: "GPA" },
