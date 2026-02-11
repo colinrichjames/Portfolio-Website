@@ -62,13 +62,13 @@ export function AcademicCore() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="p-6 rounded-xl border border-border/50 bg-card/50"
               >
-                <Icon className="w-8 h-8 text-primary mb-4" />
-                <div className="flex items-baseline gap-2 mb-2">
+                <Icon className="w-8 h-8 text-primary mb-4 mx-auto" />
+                <div className="flex items-baseline justify-center gap-2 mb-2">
                   <span className="text-4xl font-light text-primary">
                     {stat.number}
                   </span>
                 </div>
-                <h3 className="text-sm font-medium text-foreground uppercase tracking-wider mb-3">
+                <h3 className="text-sm font-medium text-foreground uppercase tracking-wider mb-3 text-center">
                   {stat.label}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
