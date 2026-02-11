@@ -27,7 +27,7 @@ const stops = [
       "MSCS with a specialization in Human-Computer Interaction (HCI). Mastered the intersection of backend architecture and user-centered design through advanced coursework.",
     metrics: [
       { value: "3.8", label: "GPA" },
-      { value: "MSCS", label: "Degree" },
+      { value: "HCI", label: "Specialization" },
     ],
   },
   {
