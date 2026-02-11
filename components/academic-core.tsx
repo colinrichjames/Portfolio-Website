@@ -8,7 +8,7 @@ const stats = [
     number: "10",
     label: "Graduate CS Courses",
     icon: GraduationCap,
-    description: "Human Computer Interaction, ML, Natural Language Processing, Mobile Ubiquitous Computing, Game AI, AI Ethics, Video Game Design, Educational Technology, Global Entrepreneurship, Digital Marketing."
+    description: "Human Computer Interaction, Machine Learning, Natural Language Processing, Mobile Ubiquitous Computing, Game AI, AI Ethics, Video Game Design, Educational Technology, Global Entrepreneurship, Digital Marketing."
   },
   {
     number: "5+",
