@@ -12,7 +12,7 @@ const stops = [
     institute: "AT&T",
     date: "2024 - Present",
     description:
-      "Product Owner and Strategic Lead for the Unified Front Door (UFD) ecosystem. I orchestrate cross-functional teams across Engineering, DevOps, and Data Science to manage the intake lifecycle for 16,000+ users. While leading without direct reports, I define the product vision, set the technical tone for our SDLC, and bridge the gap between 6+ stakeholder groups and our core development teams.",
+      "Product Owner and Strategic Lead for the Unified Front Door (UFD) ecosystem. I orchestrate cross-functional teams across Engineering, DevOps, and Data Science to manage the intake lifecycle for 16,000+ users. While leading without direct reports, I define the product vision, set the technical tone for our Software Delivery Lifecycle (SDLC), and bridge the gap between 6+ stakeholder groups and our core development teams.",
     metrics: [
       { value: "16K+", label: "Users" },
       { value: "6+", label: "Stakeholder Groups" },
