@@ -36,8 +36,8 @@ const defaultTransition = {
 const waveHand = {
   hidden: { rotate: 0 },
   show: {
-    rotate: [0, 20, -15, 20, -10, 15, 0],
-    transition: { duration: 0.6, ease: "easeInOut" },
+    rotate: [0, 20, -15, 20, -10, 15, -10, 20, -15, 10, 0],
+    transition: { duration: 1.4, ease: "easeInOut" },
   },
 }
 
