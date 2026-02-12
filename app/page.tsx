@@ -5,17 +5,20 @@ import { AcademicCore } from "@/components/academic-core"
 import { ProjectPortfolio } from "@/components/project-portfolio"
 import { ContactFooter } from "@/components/contact-footer"
 import { SectionDots } from "@/components/section-dots"
+import { PageLoader } from "@/components/page-loader"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background" role="main">
-      <SectionDots />
-      <HeroSection />
-      <AboutSection />
-      <RoadJourney />
-      <AcademicCore />
-      <ProjectPortfolio />
-      <ContactFooter />
-    </main>
+    <PageLoader>
+      <main className="min-h-screen bg-background" role="main">
+        <SectionDots />
+        <HeroSection />
+        <AboutSection />
+        <RoadJourney />
+        <AcademicCore />
+        <ProjectPortfolio />
+        <ContactFooter />
+      </main>
+    </PageLoader>
   )
 }
