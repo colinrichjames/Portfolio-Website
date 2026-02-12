@@ -92,7 +92,7 @@ export function ContactFooter() {
           className="mt-8"
         >
           <Button variant="default" size="lg" className="gap-2 min-h-[44px]" asChild>
-            <a href="/resume.pdf" download aria-label="Download Resume (PDF)">
+            <a href="/ColinJamesResume.pdf" download aria-label="Download Resume (PDF)">
               <Download className="w-4 h-4" aria-hidden="true" />
               Download Resume
             </a>
