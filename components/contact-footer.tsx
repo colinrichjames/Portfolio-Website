@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Linkedin, Globe, Github, Mail, MapPin, Download } from "lucide-react"
+import { Linkedin, Globe, Github, Mail, MapPin, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const links = [
@@ -92,9 +92,9 @@ export function ContactFooter() {
           className="mt-8"
         >
           <Button variant="default" size="lg" className="gap-2 min-h-[44px]" asChild>
-            <a href="/ColinJamesResume.pdf" download aria-label="Download Resume (PDF)">
-              <Download className="w-4 h-4" aria-hidden="true" />
-              Download Resume
+            <a href="/ColinJamesResume.pdf" target="_blank" rel="noopener noreferrer" aria-label="View Resume (PDF)">
+              <FileText className="w-4 h-4" aria-hidden="true" />
+              View Resume
             </a>
           </Button>
         </motion.div>
