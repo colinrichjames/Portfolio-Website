@@ -34,7 +34,7 @@ const projects: Project[] = [
     description:
       "Led a cross-functional team of three to architect a real-time 2D simulation from the ground up. I engineered complex AI entity behaviors\u2014including hostile 'Yellow Jacket' swarms and 'Bulldog' pathfinding\u2014while implementing a robust game state ecosystem featuring resource management, health regeneration systems, and modular quest architecture. This project serves as a technical deep dive into real-time state synchronization and user-centered interaction design within a high-stakes, adversarial environment.",
     videoId: "OvySUf1DCRs",
-    githubUrl: "#",
+    githubUrl: "https://github.com/colinrichjames/RamblinCity",
     pdfUrl: "#",
     tags: ["Unity", "C#", "Game Design", "Team Lead"],
   },
