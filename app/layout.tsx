@@ -8,9 +8,28 @@ const inter = Inter({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://colinrjames.com'),
   title: 'Colin Richard James | Engineering Leader',
   description: 'Engineering Leader with a Business Core. MSCS @ Georgia Tech | Building High-Performing Teams & Scalable Systems.',
-  generator: 'v0.app',
+  openGraph: {
+    title: 'Colin Richard James | Engineering Leader',
+    description: 'Engineering Leader with a Business Core. MSCS @ Georgia Tech | Building High-Performing Teams & Scalable Systems.',
+    images: [
+      {
+        url: '/images/og-headshot.jpg',
+        width: 512,
+        height: 512,
+        alt: 'Colin James - Engineering Leader',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Colin Richard James | Engineering Leader',
+    description: 'Engineering Leader with a Business Core. MSCS @ Georgia Tech.',
+    images: ['/images/og-headshot.jpg'],
+  },
   icons: {
     icon: [
       {
