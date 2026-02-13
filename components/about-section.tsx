@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { FileText } from "lucide-react"
 import Image from "next/image"
 
 const pillars = [
@@ -108,29 +107,6 @@ export function AboutSection() {
             </motion.div>
           ))}
         </div>
-
-        {/* View Resume Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-12 text-center"
-        >
-          <motion.a
-            href="/ColinJamesResume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-primary text-primary text-sm font-medium tracking-wide hover:bg-primary/10 transition-colors cursor-pointer"
-            aria-label="View Resume (PDF)"
-          >
-            <FileText className="w-4 h-4" aria-hidden="true" />
-            View Resume
-          </motion.a>
-        </motion.div>
 
       </div>
     </section>
