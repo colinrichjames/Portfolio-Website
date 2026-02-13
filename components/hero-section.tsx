@@ -122,7 +122,7 @@ export function HeroSection() {
             transition={defaultTransition}
             className="text-lg md:text-xl text-primary font-medium mb-1.5 md:mb-3 flex items-center justify-center gap-1.5"
           >
-            {"Hey, y'all!"}
+            {"Hey!"}
             <motion.span
               variants={waveHand}
               style={{ transformOrigin: "70% 80%" }}
