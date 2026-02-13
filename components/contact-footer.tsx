@@ -1,8 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Linkedin, Globe, Github, Mail, MapPin, FileText } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Linkedin, Globe, Github, Mail, MapPin } from "lucide-react"
 
 const links = [
   {
@@ -83,21 +82,6 @@ export function ContactFooter() {
           </span>
         </motion.div>
 
-        {/* Resume Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-8"
-        >
-          <Button variant="default" size="lg" className="gap-2 min-h-[44px]" asChild>
-            <a href="/ColinJamesResume.pdf" target="_blank" rel="noopener noreferrer" aria-label="View Resume (PDF)">
-              <FileText className="w-4 h-4" aria-hidden="true" />
-              View Resume
-            </a>
-          </Button>
-        </motion.div>
       </div>
 
       {/* Footer */}
