@@ -156,7 +156,7 @@ export function RoadJourney() {
             style={{ top: carTop, x: "-50%", y: "-50%" }}
             aria-hidden="true"
           >
-            <CarIcon className="w-10 md:w-14 text-primary" />
+            <CarIcon className="w-14 md:w-20" />
           </motion.div>
 
           {/* Stop cards */}
