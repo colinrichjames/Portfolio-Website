@@ -49,7 +49,7 @@ const projects: Project[] = [
       "Developed a wearable IoT prototype designed to redefine human-computer interaction by replacing traditional remote controls with a seamless, gesture-based input system. We engineered a Random Forest classifier to recognize dynamic hand gestures in real-time.",
     videoId: "Ry99R262HbM",
     device: "iphone",
-    githubUrl: "#",
+    githubUrl: "https://github.com/colinrichjames/IoTSmartGlove",
     pdfUrl: "/smartglove.pdf",
     tags: ["Arduino", "ML", "Wearables", "HCI"],
   },
