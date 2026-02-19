@@ -15,14 +15,14 @@ export function CarIcon({ className }: CarIconProps) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      aria-label="Ramblin' Wreck — Georgia Tech's iconic 1930 Ford Sport Coupe"
+      aria-label="Ramblin' Wreck — Georgia Tech's 1930 Ford Model A Sport Coupe"
       role="img"
       // ── Entrance: drive in from the left ──
       initial={{ x: -60, opacity: 0 }}
       animate={{
         x: 0,
         opacity: 1,
-        // ── Idle physics: heavy 1930s engine — 50% slower than before ──
+        // ── Heavy 1930s idle: slow loping rumble ──
         y: [0, -1.5, 0, 1.5, 0],
       }}
       transition={{
@@ -34,54 +34,62 @@ export function CarIcon({ className }: CarIconProps) {
         filter: "drop-shadow(0 0 10px rgba(179, 163, 105, 0.5))",
       }}
     >
-      {/* ── White running board stripe ── */}
-      <rect x="35" y="78" width="130" height="4" rx="2" fill="#FFFFFF" />
+      {/* ── Fender arc — swooping white curve over both wheels ── */}
+      <path
+        d="M30 80C30 70 50 65 70 65H130C150 65 170 70 170 80"
+        stroke="#FFFFFF"
+        strokeWidth="4"
+        fill="none"
+      />
+
+      {/* ── Running board ── */}
+      <rect x="35" y="80" width="130" height="3" rx="1.5" fill="#FFFFFF" />
 
       {/* ── Gold car body ── */}
       <path
-        d="M40 78H165V65C165 60 160 58 155 58H130V78H40Z"
+        d="M40 80H160V65C160 62 155 60 150 60H125V80H40Z"
         fill="#B3A369"
       />
 
-      {/* ── Front hood extension ── */}
-      <path d="M165 78V62H172V78H165Z" fill="#B3A369" />
+      {/* ── Vertical radiator grille ── */}
+      <rect x="160" y="58" width="6" height="22" fill="#B3A369" stroke="#FFFFFF" strokeWidth="0.5" />
 
-      {/* ── Grille / front cap ── */}
-      <rect x="172" y="60" width="5" height="18" fill="#B3A369" stroke="#FFFFFF" strokeWidth="0.5" />
+      {/* ── Front cap / bumper ── */}
+      <rect x="166" y="56" width="4" height="24" fill="#B3A369" stroke="#B3A369" strokeWidth="1" />
 
-      {/* ── White soft top / cab ── */}
-      <path d="M60 58H120L110 35H75L60 58Z" fill="#FFFFFF" />
+      {/* ── White soft top — rear-set Sport Coupe cabin ── */}
+      <path d="M55 60H115L105 38H70L55 60Z" fill="#FFFFFF" />
 
-      {/* ── Front wheel (r=14) ── */}
-      <circle cx="65" cy="85" r="14" fill="#1A1A1A" stroke="#B3A369" strokeWidth="2" />
+      {/* ── Front wheel (cx=60, r=14) ── */}
+      <circle cx="60" cy="85" r="14" fill="#1A1A1A" stroke="#B3A369" strokeWidth="2" />
       <motion.g
-        style={{ transformOrigin: "65px 85px" }}
+        style={{ transformOrigin: "60px 85px" }}
         animate={{ rotate: 360 }}
         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
       >
-        <line x1="65" y1="72" x2="65" y2="98" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
-        <line x1="52" y1="85" x2="78" y2="85" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
-        <line x1="56" y1="76" x2="74" y2="94" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
-        <line x1="74" y1="76" x2="56" y2="94" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="60" y1="72" x2="60" y2="98" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="47" y1="85" x2="73" y2="85" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="51" y1="76" x2="69" y2="94" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="69" y1="76" x2="51" y2="94" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
       </motion.g>
-      <circle cx="65" cy="85" r="4" fill="#B3A369" opacity="0.85" />
+      <circle cx="60" cy="85" r="4" fill="#B3A369" opacity="0.85" />
 
-      {/* ── Rear wheel (r=14) ── */}
-      <circle cx="135" cy="85" r="14" fill="#1A1A1A" stroke="#B3A369" strokeWidth="2" />
+      {/* ── Rear wheel (cx=140, r=14) ── */}
+      <circle cx="140" cy="85" r="14" fill="#1A1A1A" stroke="#B3A369" strokeWidth="2" />
       <motion.g
-        style={{ transformOrigin: "135px 85px" }}
+        style={{ transformOrigin: "140px 85px" }}
         animate={{ rotate: 360 }}
         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
       >
-        <line x1="135" y1="72" x2="135" y2="98" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
-        <line x1="122" y1="85" x2="148" y2="85" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
-        <line x1="126" y1="76" x2="144" y2="94" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
-        <line x1="144" y1="76" x2="126" y2="94" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="140" y1="72" x2="140" y2="98" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="127" y1="85" x2="153" y2="85" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="131" y1="76" x2="149" y2="94" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="149" y1="76" x2="131" y2="94" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
       </motion.g>
-      <circle cx="135" cy="85" r="4" fill="#B3A369" opacity="0.85" />
+      <circle cx="140" cy="85" r="4" fill="#B3A369" opacity="0.85" />
 
       {/* ── Headlight ── */}
-      <circle cx="170" cy="65" r="5" fill="#B3A369" stroke="#FFFFFF" strokeWidth="1" />
+      <circle cx="168" cy="64" r="5" fill="#B3A369" stroke="#FFFFFF" strokeWidth="1" />
     </motion.svg>
   )
 }
