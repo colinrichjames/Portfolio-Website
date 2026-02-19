@@ -1,7 +1,7 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { FileText, X, Volume2, VolumeX } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { FileText, X, Volume2, VolumeX, Play, Pause, RotateCcw } from "lucide-react"
 import { useState, useEffect, useRef, useCallback } from "react"
 
 interface Project {
@@ -56,9 +56,9 @@ const projects: Project[] = [
 ]
 
 // ── YouTube IFrame API postMessage helper ────────────────────────────────────
-function ytCmd(iframe: HTMLIFrameElement | null, func: string) {
+function ytCmd(iframe: HTMLIFrameElement | null, func: string, args: unknown[] = []) {
   iframe?.contentWindow?.postMessage(
-    JSON.stringify({ event: "command", func, args: [] }),
+    JSON.stringify({ event: "command", func, args }),
     "*"
   )
 }
@@ -74,26 +74,62 @@ function DeviceShowcase({
   device: "iphone" | "macbook"
   isLinkHovered: boolean
 }) {
-  const iframeRef = useRef<HTMLIFrameElement>(null)
+  const iframeRef    = useRef<HTMLIFrameElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const [isMuted, setIsMuted] = useState(true)
+  const timerRef     = useRef<ReturnType<typeof setInterval> | null>(null)
+  const elapsedRef   = useRef(0)   // tracked play-time in seconds (for seekTo)
 
-  // Scroll-triggered play / pause at 30% viewport visibility
+  const [isMuted,   setIsMuted]   = useState(true)
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  // ── Start / stop the elapsed-time tracker ────────────────────────────────
+  const startTimer = () => {
+    if (timerRef.current) return
+    timerRef.current = setInterval(() => { elapsedRef.current += 1 }, 1000)
+  }
+  const stopTimer = () => {
+    if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
+  }
+
+  // ── Scroll-triggered play / pause at 30% viewport visibility ─────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // Brief delay ensures iframe is ready to receive postMessage
-          setTimeout(() => ytCmd(iframeRef.current, "playVideo"), 400)
+          setTimeout(() => {
+            ytCmd(iframeRef.current, "playVideo")
+            setIsPlaying(true)
+            startTimer()
+          }, 400)
         } else {
           ytCmd(iframeRef.current, "pauseVideo")
+          setIsPlaying(false)
+          stopTimer()
         }
       },
       { threshold: 0.3 }
     )
     if (containerRef.current) observer.observe(containerRef.current)
-    return () => observer.disconnect()
-  }, [])
+    return () => { observer.disconnect(); stopTimer() }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Handlers ─────────────────────────────────────────────────────────────
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      ytCmd(iframeRef.current, "pauseVideo")
+      setIsPlaying(false)
+      stopTimer()
+    } else {
+      ytCmd(iframeRef.current, "playVideo")
+      setIsPlaying(true)
+      startTimer()
+    }
+  }
+
+  const handleRewind = () => {
+    elapsedRef.current = Math.max(0, elapsedRef.current - 10)
+    ytCmd(iframeRef.current, "seekTo", [elapsedRef.current, true])
+  }
 
   const toggleMute = () => {
     ytCmd(iframeRef.current, isMuted ? "unMute" : "mute")
@@ -148,27 +184,105 @@ function DeviceShowcase({
         transition={{ duration: 0.2 }}
       />
 
-      {/* Gold sound toggle pill — floats over video */}
-      <motion.button
-        onClick={toggleMute}
-        className="absolute bottom-2.5 right-2.5 z-20 flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold tracking-widest cursor-pointer"
-        style={{
-          background: "rgba(0,0,0,0.7)",
-          backdropFilter: "blur(8px)",
-          border: "1px solid rgba(179,163,105,0.65)",
-          color: "#B3A369",
-        }}
-        whileHover={{ scale: 1.12 }}
-        whileTap={{ scale: 0.92 }}
-        aria-label={isMuted ? "Unmute video" : "Mute video"}
-      >
-        {isMuted ? (
-          <VolumeX className="w-2.5 h-2.5" />
-        ) : (
-          <Volume2 className="w-2.5 h-2.5" />
-        )}
-        {isMuted ? "OFF" : "ON"}
-      </motion.button>
+      {/* ── Control bar: Rewind · Play/Pause · Sound ── */}
+      <div className="absolute bottom-2.5 left-0 right-0 z-20 flex items-center justify-center gap-1.5 px-2">
+
+        {/* Rewind -10s */}
+        <motion.button
+          onClick={handleRewind}
+          className="flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-semibold tracking-wide cursor-pointer"
+          style={{
+            background: "rgba(0,0,0,0.72)",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(179,163,105,0.6)",
+            color: "#B3A369",
+          }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Rewind 10 seconds"
+        >
+          <RotateCcw
+            className="w-2.5 h-2.5"
+            style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.9))" }}
+          />
+          -10
+        </motion.button>
+
+        {/* Play / Pause — primary action, slightly larger */}
+        <motion.button
+          onClick={handlePlayPause}
+          className="flex items-center justify-center px-3 py-1 rounded-full cursor-pointer"
+          style={{
+            background: "rgba(0,0,0,0.72)",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(179,163,105,0.85)",
+            color: "#B3A369",
+            minWidth: "2rem",
+          }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label={isPlaying ? "Pause video" : "Play video"}
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {isPlaying ? (
+              <motion.span
+                key="pause"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1,   opacity: 1 }}
+                exit={{    scale: 0.5, opacity: 0 }}
+                transition={{ duration: 0.12 }}
+              >
+                <Pause
+                  className="w-3 h-3"
+                  style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.9))" }}
+                />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="play"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1,   opacity: 1 }}
+                exit={{    scale: 0.5, opacity: 0 }}
+                transition={{ duration: 0.12 }}
+              >
+                <Play
+                  className="w-3 h-3"
+                  style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.9))" }}
+                />
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.button>
+
+        {/* Sound toggle */}
+        <motion.button
+          onClick={toggleMute}
+          className="flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-semibold tracking-wide cursor-pointer"
+          style={{
+            background: "rgba(0,0,0,0.72)",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(179,163,105,0.6)",
+            color: "#B3A369",
+          }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label={isMuted ? "Unmute video" : "Mute video"}
+        >
+          {isMuted ? (
+            <VolumeX
+              className="w-2.5 h-2.5"
+              style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.9))" }}
+            />
+          ) : (
+            <Volume2
+              className="w-2.5 h-2.5"
+              style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.9))" }}
+            />
+          )}
+          {isMuted ? "OFF" : "ON"}
+        </motion.button>
+
+      </div>
     </div>
   )
 
