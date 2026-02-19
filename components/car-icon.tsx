@@ -22,7 +22,7 @@ export function CarIcon({ className }: CarIconProps) {
       animate={{
         x: 0,
         opacity: 1,
-        // ── Engine vibration: subtle y-axis rumble (starts after entry) ──
+        // ── Engine vibration: vintage bounce (starts after entry settles) ──
         y: [0, -1.5, 0, 1.5, 0],
       }}
       transition={{
@@ -34,26 +34,57 @@ export function CarIcon({ className }: CarIconProps) {
         filter: "drop-shadow(0 0 10px rgba(179, 163, 105, 0.5))",
       }}
     >
-      {/* ── Car body ── */}
+      {/* ── White running board stripe ── */}
+      <rect x="45" y="75" width="110" height="6" rx="3" fill="#FFFFFF" />
+
+      {/* ── Gold car body ── */}
       <path
-        d="M40 70H160C165 70 170 65 170 60V50C170 45 165 40 160 40H60C55 40 50 45 50 50V60C50 65 45 70 40 70Z"
+        d="M50 75H155V60C155 55 150 50 145 50H60C55 50 50 55 50 60V75Z"
         fill="#B3A369"
       />
-      {/* ── Roof / cab ── */}
+
+      {/* ── Front hood / engine compartment ── */}
       <path
-        d="M65 40H140C140 30 135 20 125 20H80C70 20 65 30 65 40Z"
-        fill="#FFFFFF"
+        d="M155 75H170V65C170 60 165 58 160 58H155V75Z"
+        fill="#B3A369"
       />
-      {/* ── Running board / body stripe ── */}
-      <rect x="50" y="70" width="100" height="6" rx="3" fill="#FFFFFF" />
+
+      {/* ── White soft top / cab ── */}
+      <path d="M65 50H135L125 30H75L65 50Z" fill="#FFFFFF" />
+
       {/* ── Front wheel ── */}
-      <circle cx="65" cy="85" r="15" fill="#1A1A1A" stroke="#B3A369" strokeWidth="2" />
+      <circle cx="65" cy="85" r="18" fill="#1A1A1A" stroke="#B3A369" strokeWidth="3" />
+      <motion.g
+        style={{ transformOrigin: "65px 85px" }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+      >
+        <line x1="65" y1="68" x2="65" y2="102" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="48" y1="85" x2="82" y2="85" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="53" y1="73" x2="77" y2="97" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="77" y1="73" x2="53" y2="97" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+      </motion.g>
+      <circle cx="65" cy="85" r="5" fill="#B3A369" opacity="0.85" />
+
       {/* ── Rear wheel ── */}
-      <circle cx="135" cy="85" r="15" fill="#1A1A1A" stroke="#B3A369" strokeWidth="2" />
+      <circle cx="135" cy="85" r="18" fill="#1A1A1A" stroke="#B3A369" strokeWidth="3" />
+      <motion.g
+        style={{ transformOrigin: "135px 85px" }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+      >
+        <line x1="135" y1="68" x2="135" y2="102" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="118" y1="85" x2="152" y2="85" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="123" y1="73" x2="147" y2="97" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="147" y1="73" x2="123" y2="97" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+      </motion.g>
+      <circle cx="135" cy="85" r="5" fill="#B3A369" opacity="0.85" />
+
       {/* ── Headlight ── */}
-      <circle cx="165" cy="55" r="5" fill="#B3A369" />
-      {/* ── Front bumper / fender ── */}
-      <rect x="30" y="65" width="20" height="4" fill="#B3A369" />
+      <circle cx="168" cy="62" r="6" fill="#B3A369" stroke="#FFFFFF" strokeWidth="1" />
+
+      {/* ── Grille bar ── */}
+      <rect x="153" y="55" width="4" height="20" fill="#B3A369" />
     </motion.svg>
   )
 }
