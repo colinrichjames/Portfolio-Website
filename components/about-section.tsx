@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
+import { motion, useMotionValue, useTransform, useSpring, useMotionTemplate } from "framer-motion"
 
 /* ─── Abstract Tech Backgrounds ─── */
 
@@ -227,38 +227,66 @@ const pillars = [
 
 function FlipCard({ pillar, index }: { pillar: typeof pillars[0]; index: number }) {
   const [flipped, setFlipped] = useState(false)
+  const [hovered, setHovered] = useState(false)
 
+  // Normalized mouse position: -1 to 1
   const rawX = useMotionValue(0)
   const rawY = useMotionValue(0)
+
+  // Parallax background translation
   const bgX = useSpring(useTransform(rawX, [-1, 1], [-14, 14]), { stiffness: 120, damping: 18 })
   const bgY = useSpring(useTransform(rawY, [-1, 1], [-10, 10]), { stiffness: 120, damping: 18 })
 
+  // Magnetic tilt — small angle so it reads as depth, not distraction
+  const tiltX = useSpring(useTransform(rawY, [-1, 1], [4, -4]), { stiffness: 150, damping: 20 })
+  const tiltY = useSpring(useTransform(rawX, [-1, 1], [-4, 4]), { stiffness: 150, damping: 20 })
+
+  // Cursor glow: 0–100% for the radial gradient center
+  const glowX = useMotionValue(50)
+  const glowY = useMotionValue(50)
+  const glowBg = useMotionTemplate`radial-gradient(130px circle at ${glowX}% ${glowY}%, rgba(179, 163, 105, 0.22), transparent 70%)`
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect()
-    rawX.set((e.clientX - r.left) / r.width * 2 - 1)
-    rawY.set((e.clientY - r.top) / r.height * 2 - 1)
+    const nx = (e.clientX - r.left) / r.width
+    const ny = (e.clientY - r.top) / r.height
+    rawX.set(nx * 2 - 1)
+    rawY.set(ny * 2 - 1)
+    glowX.set(nx * 100)
+    glowY.set(ny * 100)
   }
 
   const handleMouseLeave = () => {
     rawX.set(0)
     rawY.set(0)
+    setHovered(false)
+  }
+
+  const handleFlip = () => {
+    // Spring tilt back to centre before flip for a clean rotation
+    rawX.set(0)
+    rawY.set(0)
+    setFlipped(f => !f)
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="cursor-pointer rounded-xl overflow-hidden isolate"
-      style={{ perspective: "1200px" }}
-      onClick={() => setFlipped(!flipped)}
+      transition={{ duration: 0.6, delay: index * 0.12 }}
+      // No overflow-hidden here — tilt transforms + overflow-hidden conflict on composited layers.
+      // Each face clips itself via overflow-hidden + WebkitMaskImage.
+      className="cursor-pointer rounded-xl relative isolate"
+      style={{ perspective: "1200px", rotateX: tiltX, rotateY: tiltY }}
+      onClick={handleFlip}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => setHovered(true)}
       role="button"
       tabIndex={0}
       aria-label={`${pillar.title} — click to flip`}
-      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setFlipped(!flipped) }}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleFlip() }}
     >
       {/* Rotating wrapper — establishes shared dimensions for both faces */}
       <motion.div
@@ -266,10 +294,6 @@ function FlipCard({ pillar, index }: { pillar: typeof pillars[0]; index: number 
         transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
         style={{ transformStyle: "preserve-3d" }}
         className="relative w-full aspect-[4/3]"
-        whileHover={{
-          scale: 1.02,
-          boxShadow: "0 0 28px 4px rgba(179, 163, 105, 0.2)",
-        }}
       >
         {/* ── Front Face ── */}
         <div
@@ -321,6 +345,14 @@ function FlipCard({ pillar, index }: { pillar: typeof pillars[0]; index: number 
           </div>
         </div>
       </motion.div>
+
+      {/* Cursor-tracked radial glow — painted after the 3D wrapper so it composites on top */}
+      <motion.div
+        className="absolute inset-0 rounded-xl pointer-events-none"
+        style={{ background: glowBg }}
+        animate={{ opacity: hovered ? 1 : 0 }}
+        transition={{ duration: 0.25 }}
+      />
     </motion.div>
   )
 }
@@ -331,7 +363,7 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="relative py-16 md:py-24 bg-background overflow-hidden scroll-mt-4 md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
+      className="relative py-20 md:py-28 bg-background overflow-hidden scroll-mt-4 md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
       aria-labelledby="about-heading"
     >
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
@@ -354,13 +386,17 @@ export function AboutSection() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <h2
+            <motion.h2
               id="about-heading"
+              initial={{ letterSpacing: "-0.1em" }}
+              whileInView={{ letterSpacing: "-0.05em" }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight tracking-tighter"
             >
               <span className="text-primary">Leadership</span> That{" "}
               <span className="block">Inspires Change</span>
-            </h2>
+            </motion.h2>
           </motion.div>
 
           <motion.div

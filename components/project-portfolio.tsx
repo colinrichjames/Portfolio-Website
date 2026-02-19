@@ -243,7 +243,7 @@ export function ProjectPortfolio() {
   return (
     <section
       id="projects"
-      className="py-16 md:py-24 px-4 bg-background scroll-mt-4 md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
+      className="py-20 md:py-28 px-4 bg-background scroll-mt-4 md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
       aria-labelledby="portfolio-heading"
     >
       <div className="max-w-6xl mx-auto">
@@ -281,12 +281,16 @@ export function ProjectPortfolio() {
           <p className="text-sm md:text-base text-primary uppercase tracking-[0.2em] font-medium mb-3">
             Graduate Research
           </p>
-          <h2
+          <motion.h2
             id="portfolio-heading"
+            initial={{ letterSpacing: "-0.1em" }}
+            whileInView={{ letterSpacing: "-0.05em" }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tighter"
           >
             Project Portfolio
-          </h2>
+          </motion.h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
             A showcase of my Georgia Tech MSCS projects bridging HCI research with practical engineering solutions.
           </p>

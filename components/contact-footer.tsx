@@ -30,7 +30,7 @@ export function ContactFooter() {
   return (
     <section
       id="contact"
-      className="py-16 md:py-24 px-6 bg-secondary/30 md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
+      className="py-20 md:py-28 px-6 bg-secondary/30 md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
       aria-labelledby="contact-heading"
     >
       <div className="max-w-3xl mx-auto text-center">
@@ -44,12 +44,16 @@ export function ContactFooter() {
           <p className="text-sm md:text-base text-primary uppercase tracking-[0.2em] font-medium mb-3">
             Contact
           </p>
-          <h2
+          <motion.h2
             id="contact-heading"
+            initial={{ letterSpacing: "-0.1em" }}
+            whileInView={{ letterSpacing: "-0.05em" }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tighter"
           >
             {"Let's Build the Future Together"}
-          </h2>
+          </motion.h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Engineering Leader with an MSCS from Georgia Tech specializing in HCI and AI. Open to Software Engineering management roles in the Seattle area.
           </p>

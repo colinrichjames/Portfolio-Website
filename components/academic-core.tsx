@@ -28,7 +28,7 @@ export function AcademicCore() {
   return (
     <section
       id="core"
-      className="py-16 md:py-24 bg-background md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
+      className="py-20 md:py-28 bg-background md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
       aria-labelledby="academic-core-heading"
     >
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
@@ -42,12 +42,16 @@ export function AcademicCore() {
           <p className="text-sm md:text-base text-primary uppercase tracking-[0.2em] font-medium mb-3">
             Professional & Academic Core
           </p>
-          <h2
+          <motion.h2
             id="academic-core-heading"
+            initial={{ letterSpacing: "-0.1em" }}
+            whileInView={{ letterSpacing: "-0.05em" }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tighter"
           >
             Skills & Experience
-          </h2>
+          </motion.h2>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6">
