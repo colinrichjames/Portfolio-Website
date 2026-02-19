@@ -154,22 +154,28 @@ export function HeroSection() {
               ease: [0.34, 1.56, 0.64, 1],
             }}
           >
-            {/* Breathing glow — gold ↔ teal cycle, 4s loop */}
+            {/* Breathing glow — gold pulse, 4s loop */}
             <motion.div
               className="absolute inset-0 rounded-full blur-xl"
               animate={{
                 scale:           [1.1, 1.38, 1.1],
-                opacity:         [0.38, 0.58, 0.38],
+                opacity:         [0.38, 0.62, 0.38],
                 backgroundColor: [
                   "rgba(179, 163, 105, 0.65)",
-                  "rgba(20,  184, 166, 0.48)",
+                  "rgba(212, 192, 120, 0.75)",
                   "rgba(179, 163, 105, 0.65)",
                 ],
               }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             />
             {/* Circular headshot */}
-            <div className="relative w-36 h-36 md:w-60 md:h-60 rounded-full border-4 border-background overflow-hidden shadow-xl">
+            <div
+              className="relative w-36 h-36 md:w-60 md:h-60 rounded-full border-4 border-background overflow-hidden"
+              style={{
+                boxShadow:
+                  "0 0 20px rgba(179, 163, 105, 0.4), 0 0 40px rgba(179, 163, 105, 0.2)",
+              }}
+            >
               <Image
                 src="/images/colin-headshot.jpeg"
                 alt="Colin James - Engineering Leader"
