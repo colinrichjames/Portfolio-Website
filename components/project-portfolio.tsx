@@ -185,42 +185,41 @@ function DeviceShowcase({
       />
 
       {/* ── Control bar: Rewind · Play/Pause · Sound ── */}
-      <div className="absolute bottom-2.5 left-0 right-0 z-20 flex items-center justify-center gap-1.5 px-2">
+      <div className="absolute bottom-3.5 left-0 right-0 z-20 flex items-center justify-center gap-2 px-3">
 
         {/* Rewind -10s */}
         <motion.button
           onClick={handleRewind}
-          className="flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-semibold tracking-wide cursor-pointer"
+          className="flex items-center justify-center gap-1 px-3 py-2 min-h-[44px] rounded-full text-[10px] font-semibold tracking-wide cursor-pointer"
           style={{
-            background: "rgba(0,0,0,0.72)",
+            background: "rgba(0,0,0,0.75)",
             backdropFilter: "blur(10px)",
             border: "1px solid rgba(179,163,105,0.6)",
             color: "#B3A369",
           }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
           aria-label="Rewind 10 seconds"
         >
           <RotateCcw
-            className="w-2.5 h-2.5"
+            className="w-3 h-3"
             style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.9))" }}
           />
           -10
         </motion.button>
 
-        {/* Play / Pause — primary action, slightly larger */}
+        {/* Play / Pause — primary action */}
         <motion.button
           onClick={handlePlayPause}
-          className="flex items-center justify-center px-3 py-1 rounded-full cursor-pointer"
+          className="flex items-center justify-center px-4 py-2 min-h-[44px] min-w-[44px] rounded-full cursor-pointer"
           style={{
-            background: "rgba(0,0,0,0.72)",
+            background: "rgba(0,0,0,0.75)",
             backdropFilter: "blur(10px)",
-            border: "1px solid rgba(179,163,105,0.85)",
+            border: "1px solid rgba(179,163,105,0.9)",
             color: "#B3A369",
-            minWidth: "2rem",
           }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
           aria-label={isPlaying ? "Pause video" : "Play video"}
         >
           <AnimatePresence mode="wait" initial={false}>
@@ -233,7 +232,7 @@ function DeviceShowcase({
                 transition={{ duration: 0.12 }}
               >
                 <Pause
-                  className="w-3 h-3"
+                  className="w-3.5 h-3.5"
                   style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.9))" }}
                 />
               </motion.span>
@@ -246,7 +245,7 @@ function DeviceShowcase({
                 transition={{ duration: 0.12 }}
               >
                 <Play
-                  className="w-3 h-3"
+                  className="w-3.5 h-3.5"
                   style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.9))" }}
                 />
               </motion.span>
@@ -257,25 +256,25 @@ function DeviceShowcase({
         {/* Sound toggle */}
         <motion.button
           onClick={toggleMute}
-          className="flex items-center gap-1 px-2 py-1 rounded-full text-[9px] font-semibold tracking-wide cursor-pointer"
+          className="flex items-center justify-center gap-1 px-3 py-2 min-h-[44px] rounded-full text-[10px] font-semibold tracking-wide cursor-pointer"
           style={{
-            background: "rgba(0,0,0,0.72)",
+            background: "rgba(0,0,0,0.75)",
             backdropFilter: "blur(10px)",
             border: "1px solid rgba(179,163,105,0.6)",
             color: "#B3A369",
           }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
           aria-label={isMuted ? "Unmute video" : "Mute video"}
         >
           {isMuted ? (
             <VolumeX
-              className="w-2.5 h-2.5"
+              className="w-3 h-3"
               style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.9))" }}
             />
           ) : (
             <Volume2
-              className="w-2.5 h-2.5"
+              className="w-3 h-3"
               style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.9))" }}
             />
           )}
@@ -292,7 +291,7 @@ function DeviceShowcase({
       <motion.div
         ref={containerRef}
         className="relative mx-auto"
-        style={{ width: "clamp(130px, 46%, 160px)" }}
+        style={{ width: "clamp(170px, 56%, 220px)" }}
         animate={{ scale: isMuted ? 1 : 1.04 }}
         transition={{ type: "spring", stiffness: 280, damping: 20 }}
       >
@@ -499,7 +498,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <div
             className={`relative flex items-center justify-center ${
               project.device === "iphone"
-                ? "py-7 bg-gradient-to-b from-zinc-950/70 via-zinc-900/40 to-zinc-950/70"
+                ? "pt-4 pb-5 md:py-7 bg-gradient-to-b from-zinc-950/70 via-zinc-900/40 to-zinc-950/70"
                 : "px-5 pt-3 pb-1"
             }`}
           >
@@ -573,7 +572,7 @@ export function ProjectPortfolio() {
   return (
     <section
       id="projects"
-      className="py-20 md:py-28 px-4 bg-background scroll-mt-4 md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
+      className="py-14 md:py-28 px-4 bg-background scroll-mt-4 md:snap-start md:min-h-screen md:flex md:flex-col md:justify-center"
       aria-labelledby="portfolio-heading"
     >
       <div className="max-w-6xl mx-auto">
