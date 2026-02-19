@@ -104,17 +104,41 @@ function DeviceShowcase({
   // loop=1&playlist=ID required for single-video loop
   const src = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=${videoId}&iv_load_policy=3`
 
-  // Shared screen interior: video + overlays
+  // Screen interior: video + overlays
+  // iPhone (portrait 9:19.5) needs the iframe expanded to 386% width so the 16:9
+  // video fills the frame height — container clips the sides (cover behaviour).
+  // MacBook (landscape 16:10) fills naturally at 100% × 100%.
   const screen = (
     <div className="relative w-full h-full bg-black overflow-hidden">
-      <iframe
-        ref={iframeRef}
-        src={src}
-        title="Project demo video"
-        allow="autoplay; encrypted-media"
-        className="absolute inset-0 w-full h-full"
-        style={{ border: "none", pointerEvents: "none" }}
-      />
+      {device === "iphone" ? (
+        <div
+          style={{
+            position: "absolute",
+            width: "386%",       // (16/9) ÷ (9/19.5) ≈ 3.85× container width
+            height: "100%",
+            left: "50%",
+            top: 0,
+            transform: "translateX(-50%)",
+          }}
+        >
+          <iframe
+            ref={iframeRef}
+            src={src}
+            title="Project demo video"
+            allow="autoplay; encrypted-media"
+            style={{ width: "100%", height: "100%", border: "none", pointerEvents: "none" }}
+          />
+        </div>
+      ) : (
+        <iframe
+          ref={iframeRef}
+          src={src}
+          title="Project demo video"
+          allow="autoplay; encrypted-media"
+          className="absolute inset-0 w-full h-full"
+          style={{ border: "none", pointerEvents: "none" }}
+        />
+      )}
 
       {/* Code / Paper hover → backdrop blur dims the video */}
       <motion.div
