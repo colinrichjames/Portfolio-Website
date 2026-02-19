@@ -15,7 +15,7 @@ const pillars = [
     title: "Process",
     image: "/images/pillar-process.jpg",
     description: "Agile delivery with velocity and quality.",
-    achievement: "Modernized enterprise intake for 2,000+ apps by architecting a Unified Front Door (UFD) system."
+    achievement: "Modernized enterprise intake for 2,000+ apps and 16k+ users by developing a Unified Front Door (UFD) system."
   },
   {
     title: "Product",
