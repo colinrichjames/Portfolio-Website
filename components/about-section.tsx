@@ -250,7 +250,7 @@ function FlipCard({ pillar, index }: { pillar: typeof pillars[0]; index: number 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="cursor-pointer rounded-xl"
+      className="cursor-pointer rounded-xl overflow-hidden isolate"
       style={{ perspective: "1200px" }}
       onClick={() => setFlipped(!flipped)}
       onMouseMove={handleMouseMove}
@@ -274,7 +274,10 @@ function FlipCard({ pillar, index }: { pillar: typeof pillars[0]; index: number 
         {/* ── Front Face ── */}
         <div
           className="absolute inset-0 overflow-hidden rounded-xl"
-          style={{ backfaceVisibility: "hidden" }}
+          style={{
+            backfaceVisibility: "hidden",
+            WebkitMaskImage: "-webkit-radial-gradient(white, black)",
+          }}
         >
           {/* Parallax background — oversized to allow movement without edge bleed */}
           <div className="absolute" style={{ inset: "-20px" }}>
@@ -297,7 +300,11 @@ function FlipCard({ pillar, index }: { pillar: typeof pillars[0]; index: number 
         {/* ── Back Face ── */}
         <div
           className="absolute inset-0 overflow-hidden rounded-xl flex flex-col justify-center items-center p-8"
-          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+          style={{
+            backfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+            WebkitMaskImage: "-webkit-radial-gradient(white, black)",
+          }}
         >
           {/* Same background, blurred so text stands out */}
           <div className="absolute inset-0">
