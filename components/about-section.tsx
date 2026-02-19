@@ -286,7 +286,7 @@ function FlipCard({ pillar, index }: { pillar: typeof pillars[0]; index: number 
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/65" />
           {/* Content */}
           <div className="absolute bottom-0 left-0 right-0 p-6">
-            <h3 className="text-2xl font-light text-white tracking-wide mb-2">
+            <h3 className="text-2xl font-light text-primary tracking-wide mb-2">
               {pillar.title}
             </h3>
             <p className="text-white/70 text-sm">{pillar.description}</p>
