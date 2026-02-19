@@ -21,7 +21,7 @@ const pillars = [
     title: "Product",
     image: "/images/pillar-product.jpg",
     description: "User-centered design meets engineering.",
-    achievement: "Directed a $2.5B technology portfolio, migrating 360+ legacy apps to Azure for $18M in annual savings."
+    achievement: "Optimized the self-install user journey for 500,000+ customers by architecting a custom mobile application."
   }
 ]
 
