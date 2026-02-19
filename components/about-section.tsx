@@ -34,7 +34,7 @@ function FlipCard({ pillar, index }: { pillar: typeof pillars[0]; index: number 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="cursor-pointer"
+      className="cursor-pointer rounded-xl"
       style={{ perspective: "1200px" }}
       onClick={() => setFlipped(!flipped)}
       role="button"
@@ -42,30 +42,29 @@ function FlipCard({ pillar, index }: { pillar: typeof pillars[0]; index: number 
       aria-label={`${pillar.title} — click to flip`}
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setFlipped(!flipped) }}
     >
+      {/* Rotating wrapper — sets shared dimensions for both faces */}
       <motion.div
         animate={{ rotateY: flipped ? 180 : 0 }}
         transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
         style={{ transformStyle: "preserve-3d" }}
-        className="relative w-full"
+        className="relative w-full aspect-[4/3]"
         whileHover={{
           scale: 1.02,
           boxShadow: "0 0 24px 2px rgba(179, 163, 105, 0.25)",
         }}
       >
-        {/* Front Face */}
+        {/* Front Face — absolute inset-0 so it fills the wrapper exactly */}
         <div
-          className="relative overflow-hidden rounded-xl"
+          className="absolute inset-0 overflow-hidden rounded-xl"
           style={{ backfaceVisibility: "hidden" }}
         >
-          <div className="relative aspect-[4/3] overflow-hidden">
-            <Image
-              src={pillar.image || "/placeholder.svg"}
-              alt={pillar.title}
-              fill
-              className="object-cover transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-          </div>
+          <Image
+            src={pillar.image || "/placeholder.svg"}
+            alt={pillar.title}
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-6">
             <h3 className="text-2xl font-light text-primary tracking-wide mb-2">
               {pillar.title}
@@ -77,7 +76,7 @@ function FlipCard({ pillar, index }: { pillar: typeof pillars[0]; index: number 
           </div>
         </div>
 
-        {/* Back Face */}
+        {/* Back Face — same absolute inset-0 + same rounded-xl so corners match exactly */}
         <div
           className="absolute inset-0 overflow-hidden rounded-xl bg-card/60 backdrop-blur-md border border-primary/20 flex flex-col justify-center items-center p-8"
           style={{
