@@ -347,20 +347,22 @@ function SkillFlipCard({
               <stat.Background />
             </motion.div>
           </div>
-          {/* Subtle vignette */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/45" />
+          {/* Base dimming overlay */}
+          <div className="absolute inset-0 bg-black/30" />
+          {/* Vignette */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/55" />
           {/* Centered stat content */}
           <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-            <Icon className="w-9 h-9 text-primary mb-3 opacity-85" />
+            <Icon className="w-9 h-9 text-primary mb-3 [filter:drop-shadow(0_0_10px_rgba(179,163,105,0.8))]" />
             <div className="text-5xl font-light text-white mb-2 leading-none tracking-tight">
               {stat.number}
             </div>
-            <p className="text-xs font-medium text-white/55 uppercase tracking-[0.18em] leading-snug max-w-[160px]">
+            <p className="text-xs font-semibold text-white/90 uppercase tracking-[0.18em] leading-snug max-w-[160px]">
               {stat.label}
             </p>
           </div>
           {/* Flip affordance */}
-          <p className="absolute bottom-4 left-0 right-0 text-center text-white/25 text-[10px] tracking-[0.15em] uppercase">
+          <p className="absolute bottom-4 left-0 right-0 text-center text-white/45 text-[10px] tracking-[0.15em] uppercase">
             Tap to flip
           </p>
         </div>
@@ -377,22 +379,22 @@ function SkillFlipCard({
           <div className="absolute inset-0">
             <stat.Background />
           </div>
-          <div className="absolute inset-0 backdrop-blur-md bg-black/60" />
+          <div className="absolute inset-0 backdrop-blur-md bg-black/75" />
           <div className="absolute inset-0 rounded-xl border border-white/10" />
           <div className="relative z-10 w-full">
-            <p className="text-[10px] font-medium text-primary/80 uppercase tracking-[0.2em] text-center mb-3">
+            <p className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] text-center mb-3">
               {stat.label}
             </p>
             {stat.back.type === "courses" ? (
               <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
                 {stat.back.items.map((course) => (
-                  <p key={course} className="text-[10px] text-white/72 leading-tight">
+                  <p key={course} className="text-[10px] text-white/90 leading-tight">
                     · {course}
                   </p>
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-white/85 leading-relaxed text-center">
+              <p className="text-sm text-white/95 leading-relaxed text-center">
                 {stat.back.content}
               </p>
             )}
