@@ -15,76 +15,73 @@ export function CarIcon({ className }: CarIconProps) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      aria-label="Ramblin' Wreck — Georgia Tech's iconic 1930 Ford Model A"
+      aria-label="Ramblin' Wreck — Georgia Tech's iconic 1930 Ford Sport Coupe"
       role="img"
       // ── Entrance: drive in from the left ──
       initial={{ x: -60, opacity: 0 }}
       animate={{
         x: 0,
         opacity: 1,
-        // ── Engine vibration: vintage bounce (starts after entry settles) ──
+        // ── Idle physics: heavy 1930s engine — 50% slower than before ──
         y: [0, -1.5, 0, 1.5, 0],
       }}
       transition={{
         x:       { type: "spring", stiffness: 180, damping: 22 },
         opacity: { duration: 0.35 },
-        y:       { duration: 0.12, repeat: Infinity, ease: "easeInOut", delay: 0.65 },
+        y:       { duration: 0.24, repeat: Infinity, ease: "easeInOut", delay: 0.65 },
       }}
       style={{
         filter: "drop-shadow(0 0 10px rgba(179, 163, 105, 0.5))",
       }}
     >
       {/* ── White running board stripe ── */}
-      <rect x="45" y="75" width="110" height="6" rx="3" fill="#FFFFFF" />
+      <rect x="35" y="78" width="130" height="4" rx="2" fill="#FFFFFF" />
 
       {/* ── Gold car body ── */}
       <path
-        d="M50 75H155V60C155 55 150 50 145 50H60C55 50 50 55 50 60V75Z"
+        d="M40 78H165V65C165 60 160 58 155 58H130V78H40Z"
         fill="#B3A369"
       />
 
-      {/* ── Front hood / engine compartment ── */}
-      <path
-        d="M155 75H170V65C170 60 165 58 160 58H155V75Z"
-        fill="#B3A369"
-      />
+      {/* ── Front hood extension ── */}
+      <path d="M165 78V62H172V78H165Z" fill="#B3A369" />
+
+      {/* ── Grille / front cap ── */}
+      <rect x="172" y="60" width="5" height="18" fill="#B3A369" stroke="#FFFFFF" strokeWidth="0.5" />
 
       {/* ── White soft top / cab ── */}
-      <path d="M65 50H135L125 30H75L65 50Z" fill="#FFFFFF" />
+      <path d="M60 58H120L110 35H75L60 58Z" fill="#FFFFFF" />
 
-      {/* ── Front wheel ── */}
-      <circle cx="65" cy="85" r="18" fill="#1A1A1A" stroke="#B3A369" strokeWidth="3" />
+      {/* ── Front wheel (r=14) ── */}
+      <circle cx="65" cy="85" r="14" fill="#1A1A1A" stroke="#B3A369" strokeWidth="2" />
       <motion.g
         style={{ transformOrigin: "65px 85px" }}
         animate={{ rotate: 360 }}
         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
       >
-        <line x1="65" y1="68" x2="65" y2="102" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
-        <line x1="48" y1="85" x2="82" y2="85" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
-        <line x1="53" y1="73" x2="77" y2="97" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
-        <line x1="77" y1="73" x2="53" y2="97" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="65" y1="72" x2="65" y2="98" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="52" y1="85" x2="78" y2="85" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="56" y1="76" x2="74" y2="94" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="74" y1="76" x2="56" y2="94" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
       </motion.g>
-      <circle cx="65" cy="85" r="5" fill="#B3A369" opacity="0.85" />
+      <circle cx="65" cy="85" r="4" fill="#B3A369" opacity="0.85" />
 
-      {/* ── Rear wheel ── */}
-      <circle cx="135" cy="85" r="18" fill="#1A1A1A" stroke="#B3A369" strokeWidth="3" />
+      {/* ── Rear wheel (r=14) ── */}
+      <circle cx="135" cy="85" r="14" fill="#1A1A1A" stroke="#B3A369" strokeWidth="2" />
       <motion.g
         style={{ transformOrigin: "135px 85px" }}
         animate={{ rotate: 360 }}
         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
       >
-        <line x1="135" y1="68" x2="135" y2="102" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
-        <line x1="118" y1="85" x2="152" y2="85" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
-        <line x1="123" y1="73" x2="147" y2="97" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
-        <line x1="147" y1="73" x2="123" y2="97" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="135" y1="72" x2="135" y2="98" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="122" y1="85" x2="148" y2="85" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="126" y1="76" x2="144" y2="94" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
+        <line x1="144" y1="76" x2="126" y2="94" stroke="#B3A369" strokeWidth="1.5" opacity="0.6" />
       </motion.g>
-      <circle cx="135" cy="85" r="5" fill="#B3A369" opacity="0.85" />
+      <circle cx="135" cy="85" r="4" fill="#B3A369" opacity="0.85" />
 
       {/* ── Headlight ── */}
-      <circle cx="168" cy="62" r="6" fill="#B3A369" stroke="#FFFFFF" strokeWidth="1" />
-
-      {/* ── Grille bar ── */}
-      <rect x="153" y="55" width="4" height="20" fill="#B3A369" />
+      <circle cx="170" cy="65" r="5" fill="#B3A369" stroke="#FFFFFF" strokeWidth="1" />
     </motion.svg>
   )
 }
