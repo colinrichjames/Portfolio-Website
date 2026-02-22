@@ -208,6 +208,15 @@ function CertBackground() {
 type StatBack =
   | { type: "courses"; items: string[] }
   | { type: "text"; content: string }
+  | {
+      type: "product"
+      role: string
+      impact: string
+      innovation: string
+      scale: string
+      metric: string
+      newsUrl: string
+    }
 
 const stats: {
   number: string
@@ -243,9 +252,15 @@ const stats: {
     icon: Briefcase,
     Background: ExperienceBackground,
     back: {
-      type: "text",
-      content:
-        "Diverse roles in product management, software engineering, and UX design. Graduate of AT&T's elite Technology Development Program.",
+      type: "product",
+      role: "Engineering Product Lead | AT&T Internet Air",
+      impact:
+        "Architected the mobile self-install journey enabling 500K+ customers to activate home internet in under 15 minutes.",
+      innovation:
+        "Designed a 5-step unboxing flow with QR-code scanning and real-time signal strength placement.",
+      scale: "Launched across 47 states, bridging residential users to seamless 5G connectivity.",
+      metric: "15-Minute Setup",
+      newsUrl: "https://about.att.com/pages/internet-air",
     },
   },
   {
@@ -369,7 +384,7 @@ function SkillFlipCard({
 
         {/* ── Back Face ── */}
         <div
-          className="absolute inset-0 overflow-hidden rounded-xl flex flex-col justify-center items-center p-6"
+          className="absolute inset-0 overflow-y-auto rounded-xl flex flex-col justify-center items-center p-5"
           style={{
             backfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
@@ -382,21 +397,76 @@ function SkillFlipCard({
           <div className="absolute inset-0 backdrop-blur-md bg-black/75" />
           <div className="absolute inset-0 rounded-xl border border-white/10" />
           <div className="relative z-10 w-full">
-            <p className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] text-center mb-3">
-              {stat.label}
-            </p>
-            {stat.back.type === "courses" ? (
-              <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
-                {stat.back.items.map((course) => (
-                  <p key={course} className="text-[10px] text-white/90 leading-tight">
-                    · {course}
-                  </p>
-                ))}
+            {stat.back.type === "courses" && (
+              <>
+                <p className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] text-center mb-3">
+                  {stat.label}
+                </p>
+                <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+                  {stat.back.items.map((course) => (
+                    <p key={course} className="text-[10px] text-white/90 leading-tight">
+                      · {course}
+                    </p>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {stat.back.type === "text" && (
+              <>
+                <p className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] text-center mb-3">
+                  {stat.label}
+                </p>
+                <p className="text-sm text-white/95 leading-relaxed text-center">
+                  {stat.back.content}
+                </p>
+              </>
+            )}
+
+            {stat.back.type === "product" && (
+              <div className="space-y-2">
+                {/* In the News badge */}
+                <div className="flex justify-center">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/20 border border-primary/40 text-[8px] font-bold text-primary uppercase tracking-[0.15em]">
+                    ★ In the News
+                  </span>
+                </div>
+
+                {/* Role */}
+                <p className="text-[10px] font-semibold text-white/90 text-center leading-tight">
+                  {stat.back.role}
+                </p>
+
+                {/* Impact / Innovation / Scale */}
+                <div className="space-y-1.5">
+                  <div>
+                    <span className="text-[9px] font-bold text-primary uppercase tracking-[0.08em]">Impact · </span>
+                    <span className="text-[9px] text-white/85 leading-snug">{stat.back.impact}</span>
+                  </div>
+                  <div>
+                    <span className="text-[9px] font-bold text-primary uppercase tracking-[0.08em]">Innovation · </span>
+                    <span className="text-[9px] text-white/85 leading-snug">{stat.back.innovation}</span>
+                  </div>
+                  <div>
+                    <span className="text-[9px] font-bold text-primary uppercase tracking-[0.08em]">Scale · </span>
+                    <span className="text-[9px] text-white/85 leading-snug">{stat.back.scale}</span>
+                  </div>
+                </div>
+
+                {/* Metric + Newsroom link */}
+                <div className="flex items-center justify-between pt-1.5 border-t border-white/10">
+                  <span className="text-[9px] font-bold text-primary">⏱ {stat.back.metric}</span>
+                  <a
+                    href={stat.back.newsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[9px] text-primary/80 hover:text-primary underline underline-offset-2 transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Newsroom →
+                  </a>
+                </div>
               </div>
-            ) : (
-              <p className="text-sm text-white/95 leading-relaxed text-center">
-                {stat.back.content}
-              </p>
             )}
           </div>
         </div>
