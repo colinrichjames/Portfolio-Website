@@ -228,7 +228,7 @@ export function HeroSection() {
             <p className="text-lg md:text-xl text-foreground/90 leading-relaxed text-pretty mb-2">
               <span className="font-semibold text-primary">Engineering Leader</span>
               {" with a "}
-              <span className="font-semibold text-primary">Business Core</span>
+              <span className="font-semibold text-primary">Business Mindset</span>
             </p>
             <div className="flex items-center justify-center gap-1.5 text-muted-foreground">
               <MapPin className="w-4 h-4" aria-hidden="true" />
