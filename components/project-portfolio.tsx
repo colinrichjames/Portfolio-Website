@@ -69,20 +69,27 @@ function DeviceShowcase({
   videoId,
   device,
   isLinkHovered,
+  isActive,
+  onActivate,
 }: {
   videoId: string
   device: "iphone" | "macbook"
   isLinkHovered: boolean
+  isActive: boolean
+  onActivate: () => void
 }) {
   const iframeRef    = useRef<HTMLIFrameElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const timerRef     = useRef<ReturnType<typeof setInterval> | null>(null)
-  const elapsedRef   = useRef(0)   // tracked play-time in seconds (for seekTo)
+  const elapsedRef   = useRef(0)
+  // Keep a stable ref to onActivate so the scroll observer never goes stale
+  const onActivateRef = useRef(onActivate)
+  useEffect(() => { onActivateRef.current = onActivate })
 
   const [isMuted,   setIsMuted]   = useState(true)
   const [isPlaying, setIsPlaying] = useState(false)
 
-  // ── Start / stop the elapsed-time tracker ────────────────────────────────
+  // ── Start / stop the elapsed-time tracker ──────────────────────────────
   const startTimer = () => {
     if (timerRef.current) return
     timerRef.current = setInterval(() => { elapsedRef.current += 1 }, 1000)
@@ -91,35 +98,49 @@ function DeviceShowcase({
     if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
   }
 
-  // ── Scroll-triggered play / pause at 30% viewport visibility ─────────────
+  // ── React to isActive changes (driven by parent) ────────────────────────
+  useEffect(() => {
+    if (isActive) {
+      const t = setTimeout(() => {
+        ytCmd(iframeRef.current, "playVideo")
+        setIsPlaying(true)
+        startTimer()
+      }, 350)
+      return () => clearTimeout(t)
+    } else {
+      ytCmd(iframeRef.current, "pauseVideo")
+      setIsPlaying(false)
+      stopTimer()
+    }
+  }, [isActive]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Mobile: scroll-based activation (card centre of viewport) ──────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            ytCmd(iframeRef.current, "playVideo")
-            setIsPlaying(true)
-            startTimer()
-          }, 400)
-        } else {
-          ytCmd(iframeRef.current, "pauseVideo")
-          setIsPlaying(false)
-          stopTimer()
+        if (entry.isIntersecting && window.innerWidth < 768) {
+          onActivateRef.current()
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.5 }
     )
     if (containerRef.current) observer.observe(containerRef.current)
-    return () => { observer.disconnect(); stopTimer() }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    return () => observer.disconnect()
+  }, []) // stable — uses onActivateRef
 
-  // ── Handlers ─────────────────────────────────────────────────────────────
+  // ── Desktop: hover over device → activate ──────────────────────────────
+  const handlePointerEnter = () => {
+    if (window.innerWidth >= 768) onActivate()
+  }
+
+  // ── Manual controls ─────────────────────────────────────────────────────
   const handlePlayPause = () => {
     if (isPlaying) {
       ytCmd(iframeRef.current, "pauseVideo")
       setIsPlaying(false)
       stopTimer()
     } else {
+      onActivate() // claim focus
       ytCmd(iframeRef.current, "playVideo")
       setIsPlaying(true)
       startTimer()
@@ -136,21 +157,16 @@ function DeviceShowcase({
     setIsMuted((m) => !m)
   }
 
-  // enablejsapi=1 required for postMessage control
-  // loop=1&playlist=ID required for single-video loop
   const src = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=${videoId}&iv_load_policy=3`
 
-  // Screen interior: video + overlays
-  // iPhone (portrait 9:19.5) needs the iframe expanded to 386% width so the 16:9
-  // video fills the frame height — container clips the sides (cover behaviour).
-  // MacBook (landscape 16:10) fills naturally at 100% × 100%.
+  // ── Screen interior ──────────────────────────────────────────────────────
   const screen = (
     <div className="relative w-full h-full bg-black overflow-hidden">
       {device === "iphone" ? (
         <div
           style={{
             position: "absolute",
-            width: "386%",       // (16/9) ÷ (9/19.5) ≈ 3.85× container width
+            width: "386%",
             height: "100%",
             left: "50%",
             top: 0,
@@ -208,7 +224,7 @@ function DeviceShowcase({
           -10
         </motion.button>
 
-        {/* Play / Pause — primary action */}
+        {/* Play / Pause */}
         <motion.button
           onClick={handlePlayPause}
           className="flex items-center justify-center px-4 py-2 min-h-[44px] min-w-[44px] rounded-full cursor-pointer"
@@ -292,8 +308,15 @@ function DeviceShowcase({
         ref={containerRef}
         className="relative mx-auto"
         style={{ width: "clamp(170px, 56%, 220px)" }}
-        animate={{ scale: isMuted ? 1 : 1.04 }}
-        transition={{ type: "spring", stiffness: 280, damping: 20 }}
+        animate={{
+          scale: isMuted ? 1 : 1.04,
+          filter: isActive ? "brightness(1)" : "brightness(0.5)",
+        }}
+        transition={{
+          scale:  { type: "spring", stiffness: 280, damping: 20 },
+          filter: { duration: 0.4, ease: "easeOut" },
+        }}
+        onPointerEnter={handlePointerEnter}
       >
         {/* Body */}
         <div
@@ -312,39 +335,12 @@ function DeviceShowcase({
           {screen}
         </div>
 
-        {/* Power button (right edge) */}
-        <div
-          className="absolute rounded-r-sm"
-          style={{
-            right: "-3px",
-            top: "30%",
-            width: "3px",
-            height: "10%",
-            background: "#B3A369",
-          }}
-        />
-        {/* Volume up (left edge) */}
-        <div
-          className="absolute rounded-l-sm"
-          style={{
-            left: "-3px",
-            top: "22%",
-            width: "3px",
-            height: "7%",
-            background: "#B3A369",
-          }}
-        />
-        {/* Volume down (left edge) */}
-        <div
-          className="absolute rounded-l-sm"
-          style={{
-            left: "-3px",
-            top: "32%",
-            width: "3px",
-            height: "7%",
-            background: "#B3A369",
-          }}
-        />
+        {/* Power button */}
+        <div className="absolute rounded-r-sm" style={{ right: "-3px", top: "30%", width: "3px", height: "10%", background: "#B3A369" }} />
+        {/* Volume up */}
+        <div className="absolute rounded-l-sm" style={{ left: "-3px", top: "22%", width: "3px", height: "7%", background: "#B3A369" }} />
+        {/* Volume down */}
+        <div className="absolute rounded-l-sm" style={{ left: "-3px", top: "32%", width: "3px", height: "7%", background: "#B3A369" }} />
       </motion.div>
     )
   }
@@ -354,8 +350,15 @@ function DeviceShowcase({
     <motion.div
       ref={containerRef}
       className="relative w-full"
-      animate={{ scale: isMuted ? 1 : 1.02 }}
-      transition={{ type: "spring", stiffness: 280, damping: 20 }}
+      animate={{
+        scale: isMuted ? 1 : 1.02,
+        filter: isActive ? "brightness(1)" : "brightness(0.5)",
+      }}
+      transition={{
+        scale:  { type: "spring", stiffness: 280, damping: 20 },
+        filter: { duration: 0.4, ease: "easeOut" },
+      }}
+      onPointerEnter={handlePointerEnter}
     >
       {/* Screen lid */}
       <div
@@ -369,7 +372,7 @@ function DeviceShowcase({
       >
         {/* Camera dot */}
         <div className="absolute top-[5px] left-1/2 -translate-x-1/2 z-30 w-[6px] h-[6px] rounded-full bg-zinc-700 ring-1 ring-zinc-600" />
-        {/* Bezel inset — leaves room for top camera bar */}
+        {/* Bezel inset */}
         <div className="absolute inset-x-2 bottom-[3px] overflow-hidden bg-black" style={{ top: "16px" }}>
           {screen}
         </div>
@@ -386,22 +389,11 @@ function DeviceShowcase({
         }}
       >
         {/* Trackpad */}
-        <div
-          className="rounded-sm"
-          style={{
-            width: "48px",
-            height: "10px",
-            background: "#1e1e1e",
-            border: "1px solid #2a2a2a",
-          }}
-        />
+        <div className="rounded-sm" style={{ width: "48px", height: "10px", background: "#1e1e1e", border: "1px solid #2a2a2a" }} />
       </div>
 
       {/* Ground shadow */}
-      <div
-        className="mx-auto rounded-b-full"
-        style={{ height: "3px", width: "95%", background: "rgba(0,0,0,0.3)" }}
-      />
+      <div className="mx-auto rounded-b-full" style={{ height: "3px", width: "95%", background: "rgba(0,0,0,0.3)" }} />
     </motion.div>
   )
 }
@@ -460,7 +452,17 @@ function PdfModal({
 
 // ── Project Card ─────────────────────────────────────────────────────────────
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({
+  project,
+  index,
+  isActive,
+  onActivate,
+}: {
+  project: Project
+  index: number
+  isActive: boolean
+  onActivate: () => void
+}) {
   const [pdfOpen, setPdfOpen] = useState(false)
   const [isLinkHovered, setIsLinkHovered] = useState(false)
   const hasPdf = project.pdfUrl !== "#"
@@ -505,6 +507,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               videoId={project.videoId}
               device={project.device}
               isLinkHovered={isLinkHovered}
+              isActive={isActive}
+              onActivate={onActivate}
             />
           </div>
 
@@ -527,7 +531,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               {project.description}
             </p>
 
-            {/* Links — hover triggers video backdrop blur */}
+            {/* Links */}
             <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border/50">
               <a
                 href={project.githubUrl}
@@ -566,6 +570,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 // ── Section ──────────────────────────────────────────────────────────────────
 
 export function ProjectPortfolio() {
+  // MKRHome is the default hero — it autoplays when the section enters view
+  const [activeId, setActiveId] = useState<string>("mkrhome")
+
   return (
     <section
       id="projects"
@@ -626,7 +633,13 @@ export function ProjectPortfolio() {
         {/* Projects grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
           {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              isActive={activeId === project.id}
+              onActivate={() => setActiveId(project.id)}
+            />
           ))}
         </div>
       </div>
