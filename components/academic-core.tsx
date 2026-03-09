@@ -269,9 +269,13 @@ const stats: {
     icon: Award,
     Background: CertBackground,
     back: {
-      type: "text",
-      content:
-        "Udacity Nanodegrees in Programming & UX, SAFe Product Owner / Product Manager, and SAFe Agilist.",
+      type: "courses",
+      items: [
+        "Udacity Nanodegree: Programming",
+        "Udacity Nanodegree: UX Design",
+        "SAFe Product Owner / Product Manager",
+        "SAFe Agilist",
+      ],
     },
   },
 ]
