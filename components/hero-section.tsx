@@ -178,7 +178,7 @@ export function HeroSection() {
             >
               <Image
                 src="/images/colin-headshot.jpeg"
-                alt="Colin James - Engineering Leader"
+                alt="Colin James - Product Leader"
                 fill
                 className="object-cover scale-150 object-top"
                 priority
@@ -226,7 +226,7 @@ export function HeroSection() {
           {/* 3. Headline + location — spring bounce */}
           <motion.div variants={liftItem} transition={springBounce}>
             <p className="text-lg md:text-xl text-foreground/90 leading-relaxed text-pretty mb-2">
-              <span className="font-semibold text-primary">Engineering Leader</span>
+              <span className="font-semibold text-primary">Product Leader</span>
               {" with a "}
               <span className="font-semibold text-primary">Business Mindset</span>
             </p>
