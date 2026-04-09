@@ -71,7 +71,7 @@ export function ContactFooter() {
             {"Let's Build the Future Together"}
           </motion.h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Engineering Leader with an MSCS from Georgia Tech and a UW Management Information Systems degree. With 5+ years of experience leading high-impact teams at AT&T, I am seeking Software Engineering Management roles in the Seattle area.
+            Engineering Leader with an MSCS from Georgia Tech and a UW Management Information Systems degree. With 5+ years of experience leading high-impact teams at AT&T, I am seeking Product Management roles in the Seattle area.
           </p>
         </motion.div>
 
