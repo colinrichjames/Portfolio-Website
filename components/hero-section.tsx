@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
-import { ChevronDown, MapPin } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import Image from "next/image"
 
 const SESSION_KEY = "hero-animated"
@@ -225,15 +225,17 @@ export function HeroSection() {
 
           {/* 3. Headline + location — spring bounce */}
           <motion.div variants={liftItem} transition={springBounce}>
-            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed text-pretty mb-2">
-              <span className="font-semibold text-primary">Product Leader</span>
-              {" with a "}
-              <span className="font-semibold text-primary">Business Mindset</span>
+            <p className="text-base md:text-lg text-foreground/90 leading-relaxed text-pretty mb-2">
+              {"Engineering Leader with an "}
+              <span className="font-semibold text-primary">MSCS from Georgia Tech</span>
+              {" and a "}
+              <span className="font-semibold text-primary">UW Management Information Systems</span>
+              {" degree. With 5+ years of experience leading high-impact teams at "}
+              <span className="font-semibold text-primary">AT&T</span>
+              {", I am seeking "}
+              <span className="font-semibold text-primary">Product Management roles</span>
+              {" in the Seattle area."}
             </p>
-            <div className="flex items-center justify-center gap-1.5 text-muted-foreground">
-              <MapPin className="w-4 h-4" aria-hidden="true" />
-              <span className="text-sm">Seattle, Washington</span>
-            </div>
           </motion.div>
 
           {/* 4. CTA — infinite vertical float */}
